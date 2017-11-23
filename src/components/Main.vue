@@ -1,18 +1,20 @@
 <template>
-  <div>
-  </div>
+    <div class="wrapper">
+        <v-head></v-head>
+         <v-sidebar></v-sidebar>
+        
+        <div class="content">
+            <transition name="move" mode="out-in"><router-view></router-view></transition>
+        </div>
+    </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
+    import vHead from './common/header.vue';
+    import vSidebar from './common/sidebar.vue';
+    export default {
+        components:{
+            vHead, vSidebar
+        }
     }
-  }
-}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>

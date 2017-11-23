@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const HTTP = {
+export const HTTP = {
     POST: (url, params) => {
         return axios.post(url, params);
     },
