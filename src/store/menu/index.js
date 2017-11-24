@@ -1,6 +1,4 @@
-import api from '../../apis/index'
 import * as types from '../mutations_type'
-import Vue from 'vue'
 
 const state = {
   menus: []
@@ -14,14 +12,8 @@ const mutations = {
 
 
 const actions = {
-  getMenuAction: (context, user) => {
-    api.common.getMenu({
-      userId: user.userId,
-      accessToken: user.token,
-      moduleId: user.moduleId
-    }).then((res) => {
-      context.commit(types.GET_MENU, res)
-    })
+  getMenuAction: (context, res) => {
+    context.commit(types.GET_MENU, res)
   }
 }
 

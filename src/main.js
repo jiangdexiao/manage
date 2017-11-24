@@ -10,6 +10,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import store from './store/index'
 
+import api from './apis/'
+Vue.prototype.api = api
+
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

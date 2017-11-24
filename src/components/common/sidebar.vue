@@ -1,6 +1,5 @@
 <template>
     <div class="sidebar">
-        <el-button @click="getMenuAction($store.state.m_user.userInfo)">test</el-button>
         <el-tooltip placement="top">
             <div slot="content">多行信息<br/>第二行信息</div>
             <el-button>Top center</el-button>
@@ -55,40 +54,49 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex'
-    export default {
-        computed:{
-            onRoutes(){
-                return this.$route.path.replace('/','');
-            }
-        },
-        methods:{
-            ...mapActions(['getMenuAction']),
-        },
-        mounted(){
-            
-        }
+import { mapActions } from "vuex";
+export default {
+  computed: {
+    onRoutes() {
+      return this.$route.path.replace("/", "");
     }
+  },
+  methods: {
+    // ...mapActions(["getMenuAction"])
+  },
+  created() {
+    this.api.common.getMenu({
+        userId: this.$store.state.m_user.userInfo.userId,
+        accessToken: this.$store.state.m_user.userInfo.token,
+        moduleId: this.$store.state.m_user.userInfo.moduleId
+      })
+      .then(res => {
+        console.log(res);
+      });
+  },
+  mounted() {}
+};
 </script>
 <style scoped>
-    .sidebar{
-        display: block;
-        position: absolute;
-        width: 200px;
-        left: 0;
-        top: 66px;
-        bottom:0;
-        background: #324157;
-       
-    }
-    .sidebar > ul {
-        height:100%;
-    }
+.sidebar {
+  display: block;
+  position: absolute;
+  width: 200px;
+  left: 0;
+  top: 66px;
+  bottom: 0;
+  background: #324157;
+}
+.sidebar > ul {
+  height: 100%;
+}
 
-   .el-menu-item, .el-submenu__title{
-       font-size:14px;
-     
-   }
-   
-    .material-icons {font-size:12px;}
+.el-menu-item,
+.el-submenu__title {
+  font-size: 14px;
+}
+
+.material-icons {
+  font-size: 12px;
+}
 </style>

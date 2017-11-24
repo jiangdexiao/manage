@@ -1,4 +1,4 @@
-import http from '../../utils/index'
+import http from '../../utils/'
 import * as config from './config'
 
 export default {
