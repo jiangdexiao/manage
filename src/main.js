@@ -8,6 +8,7 @@ import ElementUI from 'element-ui';
 //引入element-ui的默认CSS样式
 import 'element-ui/lib/theme-chalk/index.css';
 
+import store from './store/index'
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

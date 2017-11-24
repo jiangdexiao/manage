@@ -1,7 +1,12 @@
 <template>
     <div class="sidebar">
+        <el-button @click="getMenuAction($store.state.m_user.userInfo)">test</el-button>
+        <el-tooltip placement="top">
+            <div slot="content">多行信息<br/>第二行信息</div>
+            <el-button>Top center</el-button>
+        </el-tooltip>
         <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" theme="dark" unique-opened router>
-            <el-menu-item index="abstract">
+            <el-menu-item index="abstract" >
                
                     <span class="sb-icon"><i class="material-icons">home</i></span>
                     <span class="sb-cn">摘要</span>
@@ -50,11 +55,18 @@
     </div>
 </template>
 <script>
+    import { mapActions } from 'vuex'
     export default {
         computed:{
             onRoutes(){
                 return this.$route.path.replace('/','');
             }
+        },
+        methods:{
+            ...mapActions(['getMenuAction']),
+        },
+        mounted(){
+            
         }
     }
 </script>

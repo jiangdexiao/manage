@@ -3,24 +3,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import state from './state'
-import mutations from './mutations'
-import actions from './actions'
-import getters from './getters'
+import m_menu from './menu/index'
+import m_user from './user/index'
 
-export default new Vuex.Store( {
-    state,
-    mutations,
-    actions,
-    getters
-  })
-
-//   export default new Vuex.Store({
-//     modules: {
-//       cart,
-//       user,
-//       global,
-//       router,
-//       leftmenu
-//     }
-//   })
+export default new Vuex.Store({
+    modules:{
+        m_menu,
+        m_user
+    }
+})
