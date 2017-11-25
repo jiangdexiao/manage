@@ -28,9 +28,7 @@ export default new Router({
       name: 'home',
       hidden: true,
       component: Home,
-      children:[
-        mediaManagePlatform
-      ]
+      children:mediaManagePlatform
     }
   ]
 })
