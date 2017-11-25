@@ -4,16 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import ElementUI from 'element-ui';
-//引入element-ui的默认CSS样式
-import 'element-ui/lib/theme-chalk/index.css';
-
 import store from './store/index'
+import './register/'
 
-import api from './apis/'
-Vue.prototype.api = api
-
-Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,4 +1,4 @@
-const state = {
+export default  {
     //登录用户信息
     userInfo:{
         userId:'6c711e8e3f05123450d830b94c704cca799f',
@@ -8,5 +8,3 @@ const state = {
         moduleId:'4d1a1c4eee254a518d468e99fd8e26c1'
     }
 }
-
-export default { state }

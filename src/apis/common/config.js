@@ -1,19 +1,12 @@
 
 /**
- * 用户模块
- * @type {Object}
+ * 公共模块
  */
 
-export const menu = {
+export default [{
   name: '菜单',
   method: 'menu',
   path: 'm2c.operate/permission/auth/resources',
   type: 'get'
-}
-export const login = {
-  name: '登录',
-  method: 'login',
-  path: '/login/login',
-  type: 'post'
-}
+}]
   

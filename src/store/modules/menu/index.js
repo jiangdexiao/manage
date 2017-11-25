@@ -1,4 +1,4 @@
-import * as types from '../mutations_type'
+import * as types from '../../types'
 
 const state = {
   menus: []
@@ -6,6 +6,7 @@ const state = {
 
 const mutations = {
   [types.GET_MENU](state, menus) {
+    console.log(`mutations:${types.GET_MENU+JSON.stringify(menus)}`)
     state.menus = menus
   }
 }
@@ -13,6 +14,7 @@ const mutations = {
 
 const actions = {
   getMenuAction: (context, res) => {
+    console.log('getMenuAction')
     context.commit(types.GET_MENU, res)
   }
 }

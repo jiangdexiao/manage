@@ -1,9 +1,5 @@
 <template>
     <div class="sidebar">
-        <el-tooltip placement="top">
-            <div slot="content">多行信息<br/>第二行信息</div>
-            <el-button>Top center</el-button>
-        </el-tooltip>
         <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" theme="dark" unique-opened router>
             <el-menu-item index="abstract" >
                
@@ -54,25 +50,32 @@
     </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions , mapGetters } from "vuex";
 export default {
   computed: {
     onRoutes() {
       return this.$route.path.replace("/", "");
-    }
+    },
+    ...mapGetters(['getUser'])
   },
   methods: {
-    // ...mapActions(["getMenuAction"])
+    ...mapActions(["getMenuAction"])
   },
   created() {
-    this.api.common.getMenu({
-        userId: this.$store.state.m_user.userInfo.userId,
-        accessToken: this.$store.state.m_user.userInfo.token,
-        moduleId: this.$store.state.m_user.userInfo.moduleId
-      })
-      .then(res => {
+    // this.getMenuAction(['aaa'])
+    // console.log(this.$store.state.m_menu.menus)
+    this.api_common_menu({
+        data:{
+            userId: this.getUser.userId,
+            accessToken: this.getUser.token,
+            moduleId: this.getUser.moduleId
+        }
+    }).then(res => {
         console.log(res);
-      });
+        
+    }).catch(err=>{
+        console.log('请求出错啦')
+    });
   },
   mounted() {}
 };
