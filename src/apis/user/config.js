@@ -6,7 +6,7 @@ export default [
     {
         name: '登录',
         method: 'login',
-        path: '/login/login',
+        path: 'm2c.users/user/mlogin',
         type: 'post'
     },{
         name: '登出',

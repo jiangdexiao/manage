@@ -25,9 +25,10 @@ export default function ({ path, type, data,pathParams, headers, opts } = {}) {
     var options = {
         method: type,
         url: this.BASE_URL + path,
+        params:data,
         headers: headers && typeof headers === 'object' ? headers : {}
     }
-    options[type === 'get' ? 'params' : 'data'] = data
+    // options[type === 'get' ? 'params' : 'data'] = data
     // console.log(`请求地址：${options.url},请求参数：${JSON.stringify(data)}`)
     // 分发显示加载样式任务
     this.$store.dispatch('show_loading')
@@ -42,10 +43,8 @@ export default function ({ path, type, data,pathParams, headers, opts } = {}) {
     return new Promise((resolve, reject) => {
         axios(options).then((res) => {
             this.$store.dispatch('hide_loading')
-            if (res.data.status === 200) {
-                resolve(res.data)
-            }
-            else {
+            resolve(res.data)
+            if (res.data.status != 200) {
                 this.$message({showClose: true,message: `请求错误：${res.data.errorMessage}`,type: 'error'})
             }
         }).catch((err) => {
