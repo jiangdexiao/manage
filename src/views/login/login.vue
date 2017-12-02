@@ -48,15 +48,16 @@
         this.$refs.form.validate((valid) => {
           if (valid) {
             this.loading = true;
-            this.api_user_login({data:Object.assign(this.form,{password:md5(this.form.password)} )}).then(res=>{
-              this.$router.push('/abstract')
-              console.log(res)
-              if (res.token) {
-                // that.$.cookie('mToken', result.token, {expires: 1});
-                // that.$.cookie('mUser', JSON.stringify(result.content), {expires: 1});
-                // that.$goRoute('/mu/abstract')
-              }
-            })
+            // this.api_user_login({data:Object.assign(this.form,{password:md5(this.form.password)} )}).then(res=>{
+            //   this.$router.push('/abstract')
+            //   console.log(res)
+            //   if (res.token) {
+            //     // that.$.cookie('mToken', result.token, {expires: 1});
+            //     // that.$.cookie('mUser', JSON.stringify(result.content), {expires: 1});
+            //     // that.$goRoute('/mu/abstract')
+            //   }
+            // })
+            this.$router.push('/abstract')
           } 
         })
       }

@@ -3,11 +3,14 @@
     <list-data
       ref='list-data'
       @onClickBtnAdd="onClickBtnAdd"
-      @onClickBtnUpdate="onClickBtnUpdate"
-      @onClickBtnSelect="onClickBtnSelect"
+      @onClickBtnEdit="onClickBtnEdit"
+      @onClickBtnView="onClickBtnView"
       @onClickBtnDelete="onClickBtnDelete"
+      @onClickBtn = "onClickBtn"
+      :Pagination = 'pagination'
       :List='list'
-      :FieldList='fields'></list-data>
+      :FieldList='fields'
+      :BtnInfo='btn_info'></list-data>
   </div>
 </template>
 <script>

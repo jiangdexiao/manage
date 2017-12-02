@@ -50,7 +50,7 @@ export default function ({ path, type, data,pathParams, headers, opts } = {}) {
         }).catch((err) => {
             reject(err);
             this.$store.dispatch('hide_loading')
-            this.$message({showClose: true,message: `请求错误：${res.data.errorMessage}`,type: 'error'})
+            this.$message({showClose: true,message: `请求错误：${err}`,type: 'error'})
         })
     })
 }

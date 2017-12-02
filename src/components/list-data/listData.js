@@ -89,7 +89,7 @@ export default {
         case 'Add':
           this.$emit('onClickBtnAdd', opts)
           break
-        case 'Update':
+        case 'Edit':
           this.$emit('onClickBtnUpdate', opts)
           break
         case 'Delete':
@@ -98,26 +98,17 @@ export default {
         case 'BatchDelete':
           this.onBatchDelete()
           break
-        case 'Select':
-          this.$emit('onClickBtnSelect', opts)
+        case 'View':
+          this.$emit('onClickBtnView', opts)
           break
         default:
-          this.$emit('onClickBtn', opts)
+          if (opts.btnInfo.fn) {
+            opts.btnInfo.fn(opts)
+          } else {
+            this.$emit('onClickBtn', opts)
+          }
       }
     },
-
-    /**
-     * 自定义按钮事件
-     * @param opts
-     */
-    onCustomBtnEvent (opts) {
-      if (opts.btn.fn) {
-        opts.btn.fn(opts)
-      } else {
-        this.$emit('onClickBtn', opts)
-      }
-    },
-
     /**
      * 改变当前页码事件
      * @param  {number} page 当前页面
@@ -144,14 +135,17 @@ export default {
    * @type {Object}
    */
   props: {
+    //表格数据
     List: {
       type: Array,
       required: true
     },
+    //表格字段
     FieldList: {
       type: Array,
       required: true
     },
+    //按钮信息
     BtnInfo: {
       type: Object,
       default () {
@@ -160,17 +154,14 @@ export default {
     },
     Selection: {
       type: Boolean,
+      default: true
+    },
+    //是否现实展开按钮
+    Expand: {
+      type: Boolean,
       default: false
     },
-    Expand: {
-      type: Object,
-      default () {
-        return {
-          show: false,
-          position: 'left'
-        }
-      }
-    },
+    //分页信息
     Pagination: {
       type: Object,
       default () {
@@ -200,7 +191,7 @@ export default {
         this.fields = v
       }
     },
-    Selection (v) {
+    Checkbox (v) {
       this.selection = v
     },
     Expand (v) {
