@@ -10,8 +10,8 @@
 </template>
 
 <script>
-    import vHead from '../components/common/header.vue';
-    import vSidebar from '../components/common/sidebar.vue';
+    import vHead from '../components/layout/head-nav/header.vue';
+    import vSidebar from '../components/layout/left-menu/sidebar.vue';
     export default {
         components:{
             vHead, vSidebar
