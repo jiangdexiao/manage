@@ -5,6 +5,7 @@
 import Vue from 'vue'
 import plugins from './plugins'
 import BASE_URL from '../config/setting'
+import components from './components.js'
 import ElementUI from 'element-ui';
 //引入element-ui的默认CSS样式
 import 'element-ui/lib/theme-chalk/index.css';
@@ -24,3 +25,16 @@ Vue.use({
         }
     }
 })
+
+function registerComponents(){
+    for (let key in components) {
+        console.log(key)
+        var cpName = key.replace(/([A-Z])/g, '-$1').toLowerCase()
+        if (cpName && cpName[0] === '-') {
+          cpName = cpName.replace('-', '')
+        }
+        Vue.component(cpName, components[key])
+    }
+}
+
+registerComponents()

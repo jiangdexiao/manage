@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" theme="dark" unique-opened router>
+        <el-menu class="el-menu-vertical-demo" theme="dark" unique-opened router>
             <el-menu-item index="abstract" >
                
                     <span class="sb-icon"><i class="material-icons">home</i></span>
@@ -11,7 +11,7 @@
                 <template slot="title">
                
                     <span class="sb-icon"><i class="material-icons">perm_data_setting</i></span>
-                    <span class="sb-cn">Components</span>
+                    <span class="sb-cn">BD专员管理</span>
                  
                 </template>
                 <el-menu-item index="EditorPage">Editor</el-menu-item>
@@ -41,9 +41,9 @@
              <el-submenu index="5">
                 <template slot="title">
                     <span class="sb-icon"><i class="material-icons">border_all</i></span>
-                    <span class="sb-cn">Tables</span>
+                    <span class="sb-cn">表格</span>
                 </template>
-                <el-menu-item index="BasicTables"> Basic Tables</el-menu-item>
+                <el-menu-item index="list">基础表格</el-menu-item>
                 
             </el-submenu>
         </el-menu>
