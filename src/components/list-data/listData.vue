@@ -7,7 +7,7 @@
                 </template>
             </el-table-column>
 
-            <el-table-column fixed v-if='btn_info.Checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
+            <el-table-column fixed v-if='Checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
 
             <el-table-column
                 fixed

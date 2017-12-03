@@ -19,7 +19,7 @@ export default {
       fields: this.FieldList, // 字段数组
       expand: this.Expand, // 折叠
       btn_info: this.BtnInfo, // 按钮信息
-
+      checkbox:this.Checkbox,
       pagination: this.Pagination, // 分页
 
       search: this.Search// 搜索
@@ -28,7 +28,7 @@ export default {
   methods: {
     /**
      * 表格列表触发CheckBox的事件
-     * @param  {array} val 当前选中的用户信息数组，每个元素是用户信息对象
+     * @param  {array} val 
      */
     onSelectionChange (val) {
       this.batch.datas = val
@@ -47,10 +47,6 @@ export default {
        * 改变CheckBox事件，第一个参数是ID数组，第二个参数二维数组，每个数组是选中的对象
        */
       this.$emit('onSelectionChange', {
-        ids: this.batch.ids,
-        datas: this.batch.datas
-      })
-      this.$emit('onSelectionChangeObj', {
         ids: this.batch.ids,
         datas: this.batch.datas
       })
@@ -152,7 +148,7 @@ export default {
         return {}
       }
     },
-    Selection: {
+    Checkbox: {
       type: Boolean,
       default: true
     },
@@ -192,7 +188,7 @@ export default {
       }
     },
     Checkbox (v) {
-      this.selection = v
+      this.checkbox = v
     },
     Expand (v) {
       this.expand = v

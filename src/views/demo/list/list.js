@@ -2,10 +2,12 @@ export default {
     name: 'list',
     data () {
       return {
-        list: [],
+        list: [
+        ],
         fields: [
           { key: 'id', label: 'ID'}, 
-          { key: 'name', label: '姓名'}
+          { key: 'name', label: '姓名'},
+          { key: 'date', label: '时间',formatter:function(row,column,cellValue){ return cellValue + '1'}}
         ],
         pagination:{
           total:0
@@ -42,10 +44,7 @@ export default {
       }
     },
     mounted () {
-      const obj = {
-        id: 1,
-        name: '赛'
-      }
+      const obj = {id:'1',name:'张三',date:'2017-01-01 12:11:10'}
       this.list = Array(30).fill(obj)
       this.pagination.total= this.list.length
     },
