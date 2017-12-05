@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const webpack = require('webpack')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -80,7 +80,12 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins:[
+    new webpack.ProvidePlugin({ 
+      _:"underscore"
+    }),
+  ]
 }
   // 图片路径问题 
   // 1.css中图片路径问题 url-loader 

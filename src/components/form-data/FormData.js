@@ -45,7 +45,6 @@ export default {
         data: this.submit_data,
         info: this.submit_info
       }
-
       if (this.rules) {
         this.$refs[ref].validate((valid) => {
           if (valid) {
@@ -97,7 +96,7 @@ export default {
     },
     PrimaryKey: {
       type: String,
-      default: 'id'
+      default: 'form-data'
     }
   },
 

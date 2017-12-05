@@ -46,6 +46,7 @@
                     <span v-if=' field.btns && field.btns.length > 0 ' >
                         <el-button
                             v-for='(btn,index) in field.btns'
+                            v-if=" ( !btn.condition || typeof btn.condition !== 'function') || ( btn.condition && btn.condition({list:list,data:scope.row,dataIndex:scope.$index,btnIndex:index,btn:btn}) == true )  "
                             :key='index'
                             :type="btn.type || 'info'"
                             :icon="btn.icon"

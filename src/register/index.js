@@ -19,22 +19,16 @@ Vue.use({
     install(Vue, options) {
         // 注册全局方法，如常用的接口方法，工具方法等。
         Vue.prototype.BASE_URL = BASE_URL
-        for (let key in plugins) {
-            console.log(key)
-            Vue.prototype[key] = plugins[key]
-        }
+        // 注册全局方法，如常用的接口方法，工具方法等。
+        _.each(plugins, (item, key) => {
+            Vue.prototype[key] = item
+        })
     }
 })
-
-function registerComponents(){
-    for (let key in components) {
-        console.log(key)
-        var cpName = key.replace(/([A-Z])/g, '-$1').toLowerCase()
-        if (cpName && cpName[0] === '-') {
-          cpName = cpName.replace('-', '')
-        }
-        Vue.component(cpName, components[key])
+_.each(components, (item, key) => {
+    var cpName = key.replace(/([A-Z])/g, '-$1').toLowerCase()
+    if (cpName && cpName[0] === '-') {
+      cpName = cpName.replace('-', '')
     }
-}
-
-registerComponents()
+    Vue.component(cpName, item)
+  })

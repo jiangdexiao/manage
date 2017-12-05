@@ -56,7 +56,7 @@ export default {
      */
     onSearch (opts) {
       this.$emit('onSearch', opts)
-      this.$message('点击了搜索按钮')
+      console.log(opts)
     },
 
     /**

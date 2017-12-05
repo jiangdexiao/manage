@@ -6,12 +6,14 @@ export default function (name) {
         return {}
       },
       computed: {
+        //对象数据
         data () {
           return this.Data
         },
         events () {
           return this.Data.events || {}
         },
+        //表单数据
         submit_data () {
           return this.SubmitData
         },
@@ -66,8 +68,8 @@ export default function (name) {
           if (!this.temp_field_obj[this.data.key]) {
             this.temp_field_obj[this.data.key] = {}
           }
-  
-          console.log(this.custom_attrs)
+          
+          console.log("name:"+name+' custom_attrs:'+this.custom_attrs)
   
           // 当存在value和text数组时，才可调用
           if (this.data.list && Array.isArray(this.data.list)) {
