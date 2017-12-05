@@ -1,135 +1,144 @@
 <template>
   <div class='list'>
-       <el-table border style="width: 100%" align='center' :data="list" @selection-change='onSelectionChange'>
-            <el-table-column fixed type="expand"  v-if='expand !== false'>
-                <template slot-scope="scope">
-                    <slot name="expand" :data="scope.row" :index="scope.$index"></slot>
-                </template>
-            </el-table-column>
-
-            <el-table-column fixed v-if='Checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
-
-            <el-table-column
-                fixed
-                v-if="btn_info.operate !== false"
-                :label="btn_info.label || '操作'"
-                :width="btn_info.width || 300"
-                align='center'>
-                <template slot-scope='scope'>
-                    <!--默认操作按钮-->
-                    <span v-if="btn_info.default !== false ">
-                        <el-button
-                            v-if='btn_info.view !== false'
-                            type="info"
-                            icon='view'
-                            size="mini"
-                            @click='onBtnEvent({type:"View",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.view_text || '查看'}}</el-button>
-                        <el-button
-                            v-if='btn_info.edit !== false '
-                            type="info"
-                            icon='edit'
-                            size="mini"
-                            @click='onBtnEvent({type:"Edit",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.edit_text || '编辑'}}</el-button>
-                        <el-button
-                            v-if='btn_info.delete !== false '
-                            type="danger"
-                            icon='delete'
-                            size="mini"
-                            @click='onBtnEvent({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.delete_text || '删除'}}</el-button>
-                    </span>
-
-                    <!--自定义操作按钮-->
-                    <span v-if='btn_info.list && btn_info.list.length>0' >
-                        <el-button
-                            v-for='(btn,index) in btn_info.list'
-                            :key='index'
-                            :type="btn.type || 'info'"
-                            size="mini"
-                            @click='onBtnEvent({type:btn.type,data:scope.row,dataIndex:scope.$index,btnIndex:index,list:list,btnInfo:btn})'> {{ btn.text ||''}}</el-button>
-                    </span>
-                </template>
-            </el-table-column>
-            <!--
-                prop ： 字段属性名 String
-                label : 标题名称 String
-                align : 对齐方式 left/center/right
-                header-align: 表头对齐方式，若不设置该项，则使用表格的对齐方式 left/center/right
-                sortable：是否可以排序 Boolean
-                formatter :用来格式化内容 Function(row, column, cellValue)
-                filters： 数据过滤的选项，数组格式，数组中的元素需要有 text 和 value 属性。 Array[{ text, value }]
-                filter-method ：数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。Function(value, row)
-                filter-multiple：数据过滤的选项是否多选 Boolean
-                class-name : 列的 className   string
-                label-class-name :当前列标题的自定义类名  string
-                resizable: 对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真）
-                show-overflow-tooltip :当内容过长被隐藏时显示 tooltip	
-             -->
-            <template v-for='(field,index) in fields' >
-                <el-table-column
-                    :key="index"
-                    v-if='!field.type'
-                    :prop="field.key"
-                    :label="field.label"
-                    :align="field.align || 'center'"
-                    :header-align = 'field.header_align'
-                    :sortable="field.sort || false"
-                    :formatter='field.formatter'
-                    :filters='field.filter_list' 
-                    :filter-method="field.filter_method"
-                    :filter-multiple="field.filter_multiple"
-                    :class-name='field.class_name'
-                    :resizable = 'field.resizable'
-                    :show-overflow-tooltip = 'field.show_overflow_tooltip'
-                    :width='field.width'>
-                </el-table-column>
-                <el-table-column
-                    :key="index"
-                    v-if='field.type && field.type==="image"'
-                    :prop="field.key"
-                    :label="field.label"
-                    :align="field.align || 'center'"
-                    :width='field.width'>
-                    <template slot-scope='scope'>
-                        <img :src="(field.host || '')+scope.row[field.key]" alt="">
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    :key="index"
-                    v-if='field.type && field.type==="link"'
-                    :prop="field.key"
-                    :label="field.label"
-                    :align="field.align || 'center'"
-                    :width='field.width'>
-                    <template slot-scope='scope'>
-                        <a :target="field.link_target || '_self'"
-                        :href="scope.row[field.key]">{{field.link_text || scope.row[field.key]}}</a>
-                    </template>
-                </el-table-column>
+    <ele-table-head
+      @onSearch="onSearch"
+      @onBtnEvent="onBtnEvent"
+      :Batch="batch"
+      :Search="search"
+      :ToolBar="toolbar">
+      <span slot="sls-header-after"><slot name="header-after"></slot></span>
+      <span slot="sls-header-before"><slot name="header-before"></slot></span>
+    </ele-table-head>
+    <el-table border style="width: 100%" align='center' :data="list" @selection-change='onSelectionChange'>
+        <el-table-column fixed type="expand"  v-if='expand !== false'>
+            <template slot-scope="scope">
+                <slot name="expand" :data="scope.row" :index="scope.$index"></slot>
             </template>
-      </el-table>
+        </el-table-column>
 
-      <el-col :span="24" class='btm-action'>
+        <el-table-column fixed v-if='Checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
+
+        <el-table-column
+            fixed
+            v-if="btn_info.operate !== false"
+            :label="btn_info.label || '操作'"
+            :width="btn_info.width || 300"
+            align='center'>
+            <template slot-scope='scope'>
+                <!--默认操作按钮-->
+                <span v-if="btn_info.default !== false ">
+                    <el-button
+                        v-if='btn_info.view !== false'
+                        type="info"
+                        icon='view'
+                        size="mini"
+                        @click='onBtnEvent({type:"View",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.view_text || '查看'}}</el-button>
+                    <el-button
+                        v-if='btn_info.edit !== false '
+                        type="info"
+                        icon='edit'
+                        size="mini"
+                        @click='onBtnEvent({type:"Edit",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.edit_text || '编辑'}}</el-button>
+                    <el-button
+                        v-if='btn_info.delete !== false '
+                        type="danger"
+                        icon='delete'
+                        size="mini"
+                        @click='onBtnEvent({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.delete_text || '删除'}}</el-button>
+                </span>
+
+                <!--自定义操作按钮-->
+                <span v-if='btn_info.list && btn_info.list.length>0' >
+                    <el-button
+                        v-for='(btn,index) in btn_info.list'
+                        :key='index'
+                        :type="btn.type || 'info'"
+                        size="mini"
+                        @click='onBtnEvent({type:btn.type,data:scope.row,dataIndex:scope.$index,btnIndex:index,list:list,btnInfo:btn})'> {{ btn.text ||''}}</el-button>
+                </span>
+            </template>
+        </el-table-column>
+        <!--
+            prop ： 字段属性名 String
+            label : 标题名称 String
+            align : 对齐方式 left/center/right
+            header-align: 表头对齐方式，若不设置该项，则使用表格的对齐方式 left/center/right
+            sortable：是否可以排序 Boolean
+            formatter :用来格式化内容 Function(row, column, cellValue)
+            filters： 数据过滤的选项，数组格式，数组中的元素需要有 text 和 value 属性。 Array[{ text, value }]
+            filter-method ：数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。Function(value, row)
+            filter-multiple：数据过滤的选项是否多选 Boolean
+            class-name : 列的 className   string
+            label-class-name :当前列标题的自定义类名  string
+            resizable: 对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真）
+            show-overflow-tooltip :当内容过长被隐藏时显示 tooltip	
+            -->
+        <template v-for='(field,index) in fields' >
+            <el-table-column
+                :key="index"
+                v-if='!field.type'
+                :prop="field.key"
+                :label="field.label"
+                :align="field.align || 'center'"
+                :header-align = 'field.header_align'
+                :sortable="field.sort || false"
+                :formatter='field.formatter'
+                :filters='field.filter_list' 
+                :filter-method="field.filter_method"
+                :filter-multiple="field.filter_multiple"
+                :class-name='field.class_name'
+                :resizable = 'field.resizable'
+                :show-overflow-tooltip = 'field.show_overflow_tooltip'
+                :width='field.width'>
+            </el-table-column>
+            <el-table-column
+                :key="index"
+                v-if='field.type && field.type==="image"'
+                :prop="field.key"
+                :label="field.label"
+                :align="field.align || 'center'"
+                :width='field.width'>
+                <template slot-scope='scope'>
+                    <img :src="(field.host || '')+scope.row[field.key]" alt="">
+                </template>
+            </el-table-column>
+            <el-table-column
+                :key="index"
+                v-if='field.type && field.type==="link"'
+                :prop="field.key"
+                :label="field.label"
+                :align="field.align || 'center'"
+                :width='field.width'>
+                <template slot-scope='scope'>
+                    <a :target="field.link_target || '_self'"
+                    :href="scope.row[field.key]">{{field.link_text || scope.row[field.key]}}</a>
+                </template>
+            </el-table-column>
+        </template>
+    </el-table>
+
+    <el-col :span="24" class='pagination-panel'>
         <el-pagination
             v-if='pagination  &&  ( pagination.total!==undefined && pagination.total>0 )'
             class='pagination'
             :page-sizes="pagination.page_sizes || [10,20,30,40,50,100]"
             :page-size="pagination.page_size || 10"
-            :layout="pagination.layout"
-            :total="pagination.total"
-            :current-page='pagination.current_page'
+            :layout="pagination.layout || 'total, sizes, prev, pager, next, jumper'"
+            :total="pagination.total || 0"
+            :current-page='pagination.current_page || 1'
             @current-change='onChangeCurrentPage'
             @size-change='onChangePageSize'>
         </el-pagination>
-     </el-col>
+    </el-col>
   </div>
 </template>
 <script>
-  import ListDataJs from './listData.js'
+  import ListDataJs from './ListData.js'
 
   export default ListDataJs
 </script>
 <style scoped lang='scss'>
-  .btm-action {
+  .pagination-panel {
     margin-top: 20px;
     text-align: left;
   }
@@ -138,14 +147,11 @@
   }
 
   .list {
-
     table {
-
       img {
         max-width: 100%;
         height: auto;
       }
-
     }
   }
 </style>

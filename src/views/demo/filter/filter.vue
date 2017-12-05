@@ -7,18 +7,13 @@
       @onClickBtnView="onClickBtnView"
       @onClickBtnDelete="onClickBtnDelete"
       @onClickBtn = "onClickBtn"
-      @onChangeCurrentPage="onChangeCurPage"
-      @onChangePageSize="onChangeCurPageSize"
-      :Pagination = 'pagination'
-      :Checkbox='true'
       :List='list'
-      :FieldList='fields'
-      :BtnInfo='btn_info'></list-data>
+      :FieldList='fields'></list-data>
   </div>
 </template>
 <script>
-  import ListJs from './list.js'
+  import FilterJs from './filter.js'
 
-  export default ListJs
+  export default FilterJs
 </script>
 

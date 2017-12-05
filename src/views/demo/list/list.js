@@ -2,15 +2,16 @@ export default {
     name: 'list',
     data () {
       return {
-        list: [
-        ],
+        list: [],
         fields: [
           { key: 'id', label: 'ID'}, 
           { key: 'name', label: '姓名'},
           { key: 'date', label: '时间',formatter:function(row,column,cellValue){ return cellValue + '1'}}
         ],
-        pagination:{
-          total:0
+        pagination: {
+          current_page: 1,
+          page_size:10,
+          total: 30
         },
         btn_info:{
           list:[
@@ -23,7 +24,12 @@ export default {
     },
     methods: {
       // {type,data,dataIndex,list,btn,btnIndex}
-
+      onChangeCurPage (page) {
+        this.$message('当前页是第' + page + '页')
+      },
+      onChangeCurPageSize (pageSize) {
+        this.$message('当前每页显示 ' + pageSize + ' 条')
+      },
       onClickBtn (opts) {
         console.log(opts);
         this.$message('点击的是自定义')

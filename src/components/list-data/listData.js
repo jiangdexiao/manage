@@ -1,8 +1,8 @@
-// import SlsTableHead from './SlsTableHead.vue'
+import EleTableHead from './EleTableHead.vue'
 
 export default {
   name: 'list-data',
-//   components: {SlsTableHead},
+  components: {EleTableHead},
   data () {
     return {
       batch_flag: true, // 符合批量删除为true,否则为false
@@ -15,13 +15,13 @@ export default {
         ids: []
       },
 
+      toolbar:this.ToolBar,//工具栏
       list: this.List, // 列表数组
       fields: this.FieldList, // 字段数组
       expand: this.Expand, // 折叠
-      btn_info: this.BtnInfo, // 按钮信息
-      checkbox:this.Checkbox,
+      btn_info: this.BtnInfo, // 列表按钮信息
+      checkbox:this.Checkbox,//是否显示复选框
       pagination: this.Pagination, // 分页
-
       search: this.Search// 搜索
     }
   },
@@ -32,7 +32,6 @@ export default {
      */
     onSelectionChange (val) {
       this.batch.datas = val
-
       this.batch.ids = []
       if (val.length) {
         this.batch.flag = false
@@ -50,6 +49,7 @@ export default {
         ids: this.batch.ids,
         datas: this.batch.datas
       })
+      
     },
 
     /**
@@ -58,6 +58,7 @@ export default {
      */
     onSearch (opts) {
       this.$emit('onSearch', opts)
+      this.$message('点击了搜索按钮')
     },
 
     /**
@@ -70,6 +71,8 @@ export default {
         ids: this.batch.ids,
         datas: this.batch.datas
       })
+
+      this.$message('点击了批量删除')
     },
 
     /**
@@ -86,7 +89,7 @@ export default {
           this.$emit('onClickBtnAdd', opts)
           break
         case 'Edit':
-          this.$emit('onClickBtnUpdate', opts)
+          this.$emit('onClickBtnEdit', opts)
           break
         case 'Delete':
           this.$emit('onClickBtnDelete', opts)
@@ -168,6 +171,13 @@ export default {
       type: Object,
       default () {
         return {}
+      }
+    },
+    //工具栏
+    ToolBar:{
+      type:Object,
+      default(){
+        return{}
       }
     }
   },

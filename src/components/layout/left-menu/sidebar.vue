@@ -44,6 +44,8 @@
                     <span class="sb-cn">表格</span>
                 </template>
                 <el-menu-item index="list">基础表格</el-menu-item>
+                <el-menu-item index="filter">筛选表格</el-menu-item>
+                <el-menu-item index="expand">展开表格</el-menu-item>
                 
             </el-submenu>
         </el-menu>
