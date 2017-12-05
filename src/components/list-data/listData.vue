@@ -1,90 +1,85 @@
 <template>
   <div class='list'>
        <el-table border style="width: 100%" align='center' :data="list" @selection-change='onSelectionChange'>
-            <el-table-column type="expand"  v-if='expand && expand.show && expand.show===true && (!expand.position || expand.position==="left")'>
+            <el-table-column fixed type="expand"  v-if='expand !== false'>
                 <template slot-scope="scope">
                     <slot name="expand" :data="scope.row" :index="scope.$index"></slot>
                 </template>
             </el-table-column>
 
-            <el-table-column v-if='btn_info.batch!==false'
-                       type="selection"
-                       width="55">
-            </el-table-column>
+            <el-table-column fixed v-if='Checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
 
             <el-table-column
-                v-if="btn_info.all!==false"
+                fixed
+                v-if="btn_info.operate !== false"
                 :label="btn_info.label || '操作'"
-                :width="btn_info.width || 160"
-                :context="_self">
+                :width="btn_info.width || 300"
+                align='center'>
                 <template slot-scope='scope'>
-                    <el-button
-                        v-if='btn_info.list && btn_info.list_position && btn_info.list_position==="before" && ((!btn.condition || typeof btn.condition!=="function") || (typeof btn.condition==="function" && btn.condition({list:list,data:scope.row,dataIndex:scope.$index,btnIndex:index,btn:btn})===true))'
-                        v-for='(btn,index) in btn_info.list'
-                        :key='btn.text'
-                        :type="btn.type || 'info'"
-                        size="mini"
-                        @click='onCustomBtnEvent({list:list,data:scope.row,dataIndex:scope.$index,btnIndex:index,btnInfo:btn})'>
-                        {{typeof btn.text === 'string' ? btn.text : (typeof btn.text === 'function' ? btn.text({list: list,data : scope.row,dataIndex: scope.$index,btnIndex : index,btn      : btn}) : '')}}
-                    </el-button>
-
-
-                    <span v-if="btn_info.default!==false">
+                    <!--默认操作按钮-->
+                    <span v-if="btn_info.default !== false ">
                         <el-button
-                            v-if='btn_info.select!==false && ( (typeof btn_info.select!=="function") || (typeof btn_info.select==="function" && btn_info.select({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})===true) )'
+                            v-if='btn_info.view !== false'
                             type="info"
                             icon='view'
                             size="mini"
-                            @click='onBtnEvent({type:"Select",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.select_text || ''}}</el-button>
+                            @click='onBtnEvent({type:"View",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.view_text || '查看'}}</el-button>
                         <el-button
-                            v-if='btn_info.update!==false && ( (typeof btn_info.update!=="function") || (typeof btn_info.update==="function" && btn_info.update({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})===true) )'
+                            v-if='btn_info.edit !== false '
                             type="info"
                             icon='edit'
                             size="mini"
-                            @click='onBtnEvent({type:"Update",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.update_text || ''}}</el-button>
+                            @click='onBtnEvent({type:"Edit",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.edit_text || '编辑'}}</el-button>
                         <el-button
-                            v-if='btn_info.delete!==false && ( (typeof btn_info.delete!=="function") || (typeof btn_info.delete==="function" && btn_info.delete({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})===true) )'
+                            v-if='btn_info.delete !== false '
                             type="danger"
                             icon='delete'
                             size="mini"
-                            @click='onBtnEvent({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.delete_text || ''}}</el-button>
+                            @click='onBtnEvent({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.delete_text || '删除'}}</el-button>
                     </span>
 
-                    <!--
-                        my-key-listlmy-key-listlist,data:scope.row,dataIndex:scope.$index,btnIndex:index,btnInfo:btn}
-                    -->
-                    <el-button
-                            v-if='btn_info.list && (!btn_info.list_position || btn_info.list_position==="after") && ((!btn.condition || typeof btn.condition!=="function") || (typeof btn.condition==="function" && btn.condition({list:list,data:scope.row,dataIndex:scope.$index,btnIndex:index,btn:btn})===true))'
+                    <!--自定义操作按钮-->
+                    <span v-if='btn_info.list && btn_info.list.length>0' >
+                        <el-button
                             v-for='(btn,index) in btn_info.list'
                             :key='index'
                             :type="btn.type || 'info'"
                             size="mini"
-                            @click='onCustomBtnEvent({list:list,data:scope.row,dataIndex:scope.$index,btnIndex:index,btn:btn})'>
-                        {{typeof btn.text === 'string' ? btn.text : (typeof btn.text === 'function' ? btn.text({
-                                    list     : list,
-                                    data     : scope.row,
-                                    dataIndex: scope.$index,
-                                    btnIndex : index,
-                                    btn      : btn
-                                }) : '')}}
-                                </el-button>
+                            @click='onBtnEvent({type:btn.type,data:scope.row,dataIndex:scope.$index,btnIndex:index,list:list,btnInfo:btn})'> {{ btn.text ||''}}</el-button>
+                    </span>
                 </template>
             </el-table-column>
-
-            <template
-                v-for='(field,index) in fields' >
+            <!--
+                prop ： 字段属性名 String
+                label : 标题名称 String
+                align : 对齐方式 left/center/right
+                header-align: 表头对齐方式，若不设置该项，则使用表格的对齐方式 left/center/right
+                sortable：是否可以排序 Boolean
+                formatter :用来格式化内容 Function(row, column, cellValue)
+                filters： 数据过滤的选项，数组格式，数组中的元素需要有 text 和 value 属性。 Array[{ text, value }]
+                filter-method ：数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。Function(value, row)
+                filter-multiple：数据过滤的选项是否多选 Boolean
+                class-name : 列的 className   string
+                label-class-name :当前列标题的自定义类名  string
+                resizable: 对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真）
+                show-overflow-tooltip :当内容过长被隐藏时显示 tooltip	
+             -->
+            <template v-for='(field,index) in fields' >
                 <el-table-column
                     :key="index"
                     v-if='!field.type'
                     :prop="field.key"
                     :label="field.label"
                     :align="field.align || 'center'"
+                    :header-align = 'field.header_align'
                     :sortable="field.sort || false"
                     :formatter='field.formatter'
-                    :filters='field.filter_list'
+                    :filters='field.filter_list' 
                     :filter-method="field.filter_method"
                     :filter-multiple="field.filter_multiple"
-                    :style='field.style'
+                    :class-name='field.class_name'
+                    :resizable = 'field.resizable'
+                    :show-overflow-tooltip = 'field.show_overflow_tooltip'
                     :width='field.width'>
                 </el-table-column>
                 <el-table-column
@@ -106,31 +101,19 @@
                     :align="field.align || 'center'"
                     :width='field.width'>
                     <template slot-scope='scope'>
-                        <a
-                        :target="field.link_target || '_self'"
+                        <a :target="field.link_target || '_self'"
                         :href="scope.row[field.key]">{{field.link_text || scope.row[field.key]}}</a>
                     </template>
                 </el-table-column>
             </template>
-
-            <el-table-column type="expand"
-                       :context="_self"
-                       v-if='expand && expand.show && expand.show===true && expand.position && expand.position==="right"'>
-                <template slot-scope="scope">
-                <slot name="expand"
-                        :data="scope.row"
-                        :index="scope.$index"></slot>
-                </template>
-            </el-table-column>
       </el-table>
 
       <el-col :span="24" class='btm-action'>
         <el-pagination
-            v-if='pagination  && ( (pagination.total!==undefined && pagination.total>0) || (pagination["page-count"]!==undefined && pagination["page-count"]>0) )'
+            v-if='pagination  &&  ( pagination.total!==undefined && pagination.total>0 )'
             class='pagination'
-            :page-sizes="pagination.page_sizes"
-            :page-size="pagination.page_size"
-            :page-count="pagination['page-count']"
+            :page-sizes="pagination.page_sizes || [10,20,30,40,50,100]"
+            :page-size="pagination.page_size || 10"
             :layout="pagination.layout"
             :total="pagination.total"
             :current-page='pagination.current_page'
@@ -146,20 +129,10 @@
   export default ListDataJs
 </script>
 <style scoped lang='scss'>
-  .demo-form-inline {
-    display: inline-block;
-    float: right;
-  }
-
   .btm-action {
     margin-top: 20px;
-    text-align: center;
+    text-align: left;
   }
-
-  .actions-top {
-    /*line-height : 46px;*/
-  }
-
   .pagination {
     display: inline-block;
   }

@@ -3,11 +3,15 @@
     <list-data
       ref='list-data'
       @onClickBtnAdd="onClickBtnAdd"
-      @onClickBtnUpdate="onClickBtnUpdate"
-      @onClickBtnSelect="onClickBtnSelect"
+      @onClickBtnEdit="onClickBtnEdit"
+      @onClickBtnView="onClickBtnView"
       @onClickBtnDelete="onClickBtnDelete"
+      @onClickBtn = "onClickBtn"
+      :Pagination = 'pagination'
+      :Checkbox='true'
       :List='list'
-      :FieldList='fields'></list-data>
+      :FieldList='fields'
+      :BtnInfo='btn_info'></list-data>
   </div>
 </template>
 <script>
@@ -15,22 +19,4 @@
 
   export default ListJs
 </script>
-<style scoped lang='scss'>
-  .demo-form-inline {
-    display: inline-block;
-    float: right;
-  }
 
-  .btm-action {
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .actions-top {
-    height: 46px;
-  }
-
-  .pagination {
-    display: inline-block;
-  }
-</style>

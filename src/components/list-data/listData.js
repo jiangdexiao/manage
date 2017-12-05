@@ -19,7 +19,7 @@ export default {
       fields: this.FieldList, // 字段数组
       expand: this.Expand, // 折叠
       btn_info: this.BtnInfo, // 按钮信息
-
+      checkbox:this.Checkbox,
       pagination: this.Pagination, // 分页
 
       search: this.Search// 搜索
@@ -28,7 +28,7 @@ export default {
   methods: {
     /**
      * 表格列表触发CheckBox的事件
-     * @param  {array} val 当前选中的用户信息数组，每个元素是用户信息对象
+     * @param  {array} val 
      */
     onSelectionChange (val) {
       this.batch.datas = val
@@ -47,10 +47,6 @@ export default {
        * 改变CheckBox事件，第一个参数是ID数组，第二个参数二维数组，每个数组是选中的对象
        */
       this.$emit('onSelectionChange', {
-        ids: this.batch.ids,
-        datas: this.batch.datas
-      })
-      this.$emit('onSelectionChangeObj', {
         ids: this.batch.ids,
         datas: this.batch.datas
       })
@@ -89,7 +85,7 @@ export default {
         case 'Add':
           this.$emit('onClickBtnAdd', opts)
           break
-        case 'Update':
+        case 'Edit':
           this.$emit('onClickBtnUpdate', opts)
           break
         case 'Delete':
@@ -98,26 +94,17 @@ export default {
         case 'BatchDelete':
           this.onBatchDelete()
           break
-        case 'Select':
-          this.$emit('onClickBtnSelect', opts)
+        case 'View':
+          this.$emit('onClickBtnView', opts)
           break
         default:
-          this.$emit('onClickBtn', opts)
+          if (opts.btnInfo.fn) {
+            opts.btnInfo.fn(opts)
+          } else {
+            this.$emit('onClickBtn', opts)
+          }
       }
     },
-
-    /**
-     * 自定义按钮事件
-     * @param opts
-     */
-    onCustomBtnEvent (opts) {
-      if (opts.btn.fn) {
-        opts.btn.fn(opts)
-      } else {
-        this.$emit('onClickBtn', opts)
-      }
-    },
-
     /**
      * 改变当前页码事件
      * @param  {number} page 当前页面
@@ -144,33 +131,33 @@ export default {
    * @type {Object}
    */
   props: {
+    //表格数据
     List: {
       type: Array,
       required: true
     },
+    //表格字段
     FieldList: {
       type: Array,
       required: true
     },
+    //按钮信息
     BtnInfo: {
       type: Object,
       default () {
         return {}
       }
     },
-    Selection: {
+    Checkbox: {
+      type: Boolean,
+      default: true
+    },
+    //是否现实展开按钮
+    Expand: {
       type: Boolean,
       default: false
     },
-    Expand: {
-      type: Object,
-      default () {
-        return {
-          show: false,
-          position: 'left'
-        }
-      }
-    },
+    //分页信息
     Pagination: {
       type: Object,
       default () {
@@ -200,8 +187,8 @@ export default {
         this.fields = v
       }
     },
-    Selection (v) {
-      this.selection = v
+    Checkbox (v) {
+      this.checkbox = v
     },
     Expand (v) {
       this.expand = v
