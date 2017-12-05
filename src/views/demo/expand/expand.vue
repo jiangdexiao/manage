@@ -2,9 +2,7 @@
   <div class="list">
     <list-data
       ref='list-data'
-      :List='list'
-      :Expand="expand"
-      :FieldList='fields'>
+      :DataGrid='datagrid'>
       <template
         slot-scope="scope"
         slot="expand">

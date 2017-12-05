@@ -3,17 +3,19 @@ export default {
     components: {},
     data () {
       return {
-        list: [],
-        fields: [{
-          key: 'name',
-          label: '标题'
-        }],
-        expand: true
+        datagrid:{
+            List: [],
+            FieldList: [{
+              key: 'name',
+              label: '标题'
+            }],
+            Expand: true
+        }
       }
     },
     created () {
       for (let i = 1; i <= 3; i++) {
-        this.list.push({
+        this.datagrid.List.push({
           name: '赛冷思' + i,
           address: '北京上海第 ' + i + ' 区'
         })

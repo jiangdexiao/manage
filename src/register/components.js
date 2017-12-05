@@ -1,5 +1,6 @@
-import { ListData } from '../components/'
+import { ListData,FormData } from '../components/'
 
 export default{
-    ListData
+    ListData,
+    FormData
 }

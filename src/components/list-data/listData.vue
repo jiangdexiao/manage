@@ -16,48 +16,8 @@
             </template>
         </el-table-column>
 
-        <el-table-column fixed v-if='Checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
+        <el-table-column fixed v-if=' checkbox !== false' type="selection"  width="55" align='center' ></el-table-column>
 
-        <el-table-column
-            fixed
-            v-if="btn_info.operate !== false"
-            :label="btn_info.label || '操作'"
-            :width="btn_info.width || 300"
-            align='center'>
-            <template slot-scope='scope'>
-                <!--默认操作按钮-->
-                <span v-if="btn_info.default !== false ">
-                    <el-button
-                        v-if='btn_info.view !== false'
-                        type="info"
-                        icon='view'
-                        size="mini"
-                        @click='onBtnEvent({type:"View",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.view_text || '查看'}}</el-button>
-                    <el-button
-                        v-if='btn_info.edit !== false '
-                        type="info"
-                        icon='edit'
-                        size="mini"
-                        @click='onBtnEvent({type:"Edit",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.edit_text || '编辑'}}</el-button>
-                    <el-button
-                        v-if='btn_info.delete !== false '
-                        type="danger"
-                        icon='delete'
-                        size="mini"
-                        @click='onBtnEvent({type:"Delete",data:scope.row,dataIndex:scope.$index,list:list})'>{{btn_info.delete_text || '删除'}}</el-button>
-                </span>
-
-                <!--自定义操作按钮-->
-                <span v-if='btn_info.list && btn_info.list.length>0' >
-                    <el-button
-                        v-for='(btn,index) in btn_info.list'
-                        :key='index'
-                        :type="btn.type || 'info'"
-                        size="mini"
-                        @click='onBtnEvent({type:btn.type,data:scope.row,dataIndex:scope.$index,btnIndex:index,list:list,btnInfo:btn})'> {{ btn.text ||''}}</el-button>
-                </span>
-            </template>
-        </el-table-column>
         <!--
             prop ： 字段属性名 String
             label : 标题名称 String
@@ -74,6 +34,26 @@
             show-overflow-tooltip :当内容过长被隐藏时显示 tooltip	
             -->
         <template v-for='(field,index) in fields' >
+            <el-table-column
+                fixed
+                :key="index"
+                v-if='field.type === "operate"'
+                :label="field.label || '操作'"
+                :width="field.width || 300"
+                :align="field.align || 'center'">
+                <template slot-scope='scope'>
+                    <!--自定义操作按钮-->
+                    <span v-if=' field.btns && field.btns.length > 0 ' >
+                        <el-button
+                            v-for='(btn,index) in field.btns'
+                            :key='index'
+                            :type="btn.type || 'info'"
+                            :icon="btn.icon"
+                            size="mini"
+                            @click='onBtnEvent({btnInfo:btn,data:scope.row,dataIndex:scope.$index,btnIndex:index,list:list})'> {{ btn.text ||''}}</el-button>
+                    </span>
+                </template>
+            </el-table-column>
             <el-table-column
                 :key="index"
                 v-if='!field.type'

@@ -14,15 +14,13 @@ export default {
         datas: [],
         ids: []
       },
-
-      toolbar:this.ToolBar,//工具栏
-      list: this.List, // 列表数组
-      fields: this.FieldList, // 字段数组
-      expand: this.Expand, // 折叠
-      btn_info: this.BtnInfo, // 列表按钮信息
-      checkbox:this.Checkbox,//是否显示复选框
-      pagination: this.Pagination, // 分页
-      search: this.Search// 搜索
+      toolbar:this.DataGrid.ToolBar || [],//工具栏
+      list: this.DataGrid.List || [], // 列表数组
+      fields: this.DataGrid.FieldList || [], // 字段数组
+      expand: this.DataGrid.Expand || false, // 折叠
+      checkbox:this.DataGrid.Checkbox || true,//是否显示复选框
+      pagination: this.DataGrid.Pagination || {}, // 分页
+      search: this.DataGrid.Search// 搜索
     }
   },
   methods: {
@@ -71,42 +69,18 @@ export default {
         ids: this.batch.ids,
         datas: this.batch.datas
       })
-
-      this.$message('点击了批量删除')
     },
 
     /**
      * 点击按钮事件
      * @param opts  组装的返回参数
-     * @param.attr  opts.type   string      按钮类型，内置四个(添加，查看，修改，删除)
+     * @param.attr  opts.eventName   string 按钮事件
      * @param.attr  opts.index  number      当点击列表中的按钮时，此值为当前行的索引
      * @param.attr  opts.data   object      当点击列表中的按钮时，此值为当前行数据
      * @param.attr  opts.list   array       当点击列别中的按钮时，此值为当前列表数据
      */
     onBtnEvent (opts) {
-      switch (opts.type) {
-        case 'Add':
-          this.$emit('onClickBtnAdd', opts)
-          break
-        case 'Edit':
-          this.$emit('onClickBtnEdit', opts)
-          break
-        case 'Delete':
-          this.$emit('onClickBtnDelete', opts)
-          break
-        case 'BatchDelete':
-          this.onBatchDelete()
-          break
-        case 'View':
-          this.$emit('onClickBtnView', opts)
-          break
-        default:
-          if (opts.btnInfo.fn) {
-            opts.btnInfo.fn(opts)
-          } else {
-            this.$emit('onClickBtn', opts)
-          }
-      }
+      this.$emit(opts.btnInfo.eventName, opts)
     },
     /**
      * 改变当前页码事件
@@ -126,7 +100,7 @@ export default {
   },
 
   mounted () {
-    // console.log(this.list);
+    // console.log(this.DataGrid);
   },
 
   /**
@@ -134,50 +108,10 @@ export default {
    * @type {Object}
    */
   props: {
-    //表格数据
-    List: {
-      type: Array,
-      required: true
-    },
-    //表格字段
-    FieldList: {
-      type: Array,
-      required: true
-    },
-    //按钮信息
-    BtnInfo: {
-      type: Object,
-      default () {
-        return {}
-      }
-    },
-    Checkbox: {
-      type: Boolean,
-      default: true
-    },
-    //是否现实展开按钮
-    Expand: {
-      type: Boolean,
-      default: false
-    },
-    //分页信息
-    Pagination: {
-      type: Object,
-      default () {
-        return {}
-      }
-    },
-    Search: {
-      type: Object,
-      default () {
-        return {}
-      }
-    },
-    //工具栏
-    ToolBar:{
+    DataGrid:{
       type:Object,
       default(){
-        return{}
+        return {}
       }
     }
   },
@@ -187,30 +121,33 @@ export default {
    * @type {Object}
    */
   watch: {
-    List (v) {
-      if (v) {
+    'DataGrid.List'(v){
+      if( v ){
         this.list = v
       }
     },
-    FieldList (v) {
-      if (v) {
+    'DataGrid.FieldList'(v){
+      if( v ){
         this.fields = v
       }
     },
-    Checkbox (v) {
-      this.checkbox = v
+    'DataGrid.ToolBar'(v){
+      if( v ){
+        this.toolbar = v
+      }
     },
-    Expand (v) {
-      this.expand = v
-    },
-    BtnInfo (v) {
-      this.btn_info = v
-    },
-    Pagination (v) {
+    'DataGrid.Pagination'(v){
       this.pagination = v
     },
-    Search (v) {
+    'DataGrid.Checkbox'(v){
+      this.checkbox = v
+    },
+    'DataGrid.Expand'(v){
+      this.checkbox = v
+    },
+    'DataGrid.Search'(v){
       this.search = v
+      console.log(v)
     }
   }
 }

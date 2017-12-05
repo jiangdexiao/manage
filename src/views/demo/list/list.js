@@ -2,23 +2,51 @@ export default {
     name: 'list',
     data () {
       return {
-        list: [],
-        fields: [
-          { key: 'id', label: 'ID'}, 
-          { key: 'name', label: '姓名'},
-          { key: 'date', label: '时间',formatter:function(row,column,cellValue){ return cellValue + '1'}}
-        ],
-        pagination: {
-          current_page: 1,
-          page_size:10,
-          total: 30
-        },
-        btn_info:{
-          list:[
-            {
-              text:'自定义'
+        datagrid:{
+          List: [],
+          FieldList: [
+            { key: 'id', label: 'ID'}, 
+            { key: 'name', label: '姓名'},
+            { key: 'date', label: '时间',formatter:function(row,column,cellValue){ return cellValue + '1'}},
+            { type:'operate',label: '操作',
+              btns:[
+                {text:'编辑',eventName:'onClickBtnEdit'},
+                {text:'删除',type:'danger',eventName:'onClickBtnDelete'}
+              ]
             }
-          ]
+          ],
+          ToolBar:[
+            {text:'添加',eventName:'onClickBtnAdd'},
+            {text:'删除',type:'danger',eventName:'onClickBtnDelete'},
+          ],
+          Pagination: {
+            current_page: 1,
+            page_size:10,
+            total: 30
+          },
+          Search: {
+            fields: [{
+              key: 'cate',
+              type: 'select',
+              multiple: false,
+              list: [{
+                value: 'jishu',
+                text: '技术'
+              }, {
+                value: 'sanwen',
+                text: '散文'
+              }, {
+                value: 'qita',
+                text: '其他'
+              }],
+              desc: '请选择分类',
+              label: ''
+            }, {
+              label: '',
+              key: 'input',
+              desc: '请输入标题'
+            }]
+          }
         }
       }
     },
@@ -50,15 +78,16 @@ export default {
       }
     },
     mounted () {
-      const obj = {id:'1',name:'张三',date:'2017-01-01 12:11:10'}
-      this.list = Array(30).fill(obj)
-      this.pagination.total= this.list.length
+      for(let i =0;i<10;i++){
+
+        this.datagrid.List.push({id:i,name:'张三',date:'2017-01-01 12:11:10'})
+      }
+      this.datagrid.Pagination.total= this.datagrid.List.length
     },
     watch: {
       $route (to, from) {
   
       }
     }
-  
   }
   

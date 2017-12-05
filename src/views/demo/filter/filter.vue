@@ -7,8 +7,7 @@
       @onClickBtnView="onClickBtnView"
       @onClickBtnDelete="onClickBtnDelete"
       @onClickBtn = "onClickBtn"
-      :List='list'
-      :FieldList='fields'></list-data>
+      :DataGrid='datagrid'></list-data>
   </div>
 </template>
 <script>

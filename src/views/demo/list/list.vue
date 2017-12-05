@@ -9,11 +9,7 @@
       @onClickBtn = "onClickBtn"
       @onChangeCurrentPage="onChangeCurPage"
       @onChangePageSize="onChangeCurPageSize"
-      :Pagination = 'pagination'
-      :Checkbox='true'
-      :List='list'
-      :FieldList='fields'
-      :BtnInfo='btn_info'></list-data>
+      :DataGrid = 'datagrid'></list-data>
   </div>
 </template>
 <script>

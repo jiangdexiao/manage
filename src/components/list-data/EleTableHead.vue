@@ -4,19 +4,16 @@
       <slot name="sls-header-before"></slot>
     </div>
 
-    <el-button
-        v-if='toolbar.btn_add!==false'
-        type='primary'
-        icon='add'
-        @click='onBtnEvent({type:"Add"})'>{{ toolbar.btn_add_text || '添加'}}</el-button>
-    <el-button
-        v-if='toolbar.btn_delete!==false'
-        type='danger'
-        icon='delete'
-        :disabled='batch.flag'
-        @click='onBtnEvent({type:"BatchDelete"})'>{{ toolbar.btn_delete_text ||'删除'}}</el-button>
+    <template v-if="toolbar && toolbar.length > 0" >
+        <el-button 
+            v-for="(btn,index) in toolbar"
+            :key="index"
+            :type="btn.type || 'primary'"
+            size="medium"
+            :icon="btn.icon || 'add'"
+            @click='onBtnEvent({btnInfo:btn,batch:batch})'>{{ btn.text || '添加'}}</el-button>
+    </template>
     
-
     <div class='list-header'>
       <slot name="sls-header-after"></slot>
     </div>
@@ -63,10 +60,7 @@
         }
       },
       ToolBar: {
-        type: Object,
-        default () {
-          return {}
-        }
+        type: Array
       },
       Search: {
         type: Object,
