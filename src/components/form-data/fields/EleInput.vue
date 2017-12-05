@@ -15,7 +15,7 @@
   import Common from './js/Common'
   import InputTextarea from './js/InputTextarea'
 
-  var Js = Common('ele-input')
+  var Js = Common('sls-input')
   Js.mixins = [InputTextarea]
   export default Js
 </script>

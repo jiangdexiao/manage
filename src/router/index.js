@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import Login from '@/views/login/login'
 import Home from '@/views/Home'
 import mediaManagePlatform from './mediaManagePlatform/'
-import operationManagePlatform from './operationManagePlatform/'
+import businessManagePlatform from './businessManagePlatform/'
 import demo from './demo/'
 
 const menus = mediaManagePlatform.concat(demo)

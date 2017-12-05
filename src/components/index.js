@@ -1,5 +1,5 @@
-import ListData from './list-data/ListData.vue'
-import FormData from './form-data/FormData.vue'
+import ListData from './list-data/'
+import FormData from './form-data/'
 
 export{
     ListData,

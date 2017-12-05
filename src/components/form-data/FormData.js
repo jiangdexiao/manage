@@ -1,5 +1,4 @@
 import Fields from './fields/'
-
 export default {
   components: Fields,
   name: 'form-data',
@@ -37,6 +36,9 @@ export default {
     }
   },
   methods: {
+    getComponent(key){
+      return this.components[key] || 'EleInput'
+    },
     /**
      * 表单提交事件
      */

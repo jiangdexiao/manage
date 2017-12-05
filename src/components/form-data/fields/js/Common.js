@@ -68,7 +68,7 @@ export default function (name) {
           if (!this.temp_field_obj[this.data.key]) {
             this.temp_field_obj[this.data.key] = {}
           }
-          
+
           console.log("name:"+name+' custom_attrs:'+this.custom_attrs)
   
           // 当存在value和text数组时，才可调用

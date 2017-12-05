@@ -1,6 +1,7 @@
-import list from '@/views/demo/list/list.vue'
-import filter from '@/views/demo/filter/filter.vue'
-import expand from '@/views/demo/expand/expand.vue'
+import list from '@/views/demo/list-data/list/list.vue'
+import filter from '@/views/demo/list-data/filter/filter.vue'
+import expand from '@/views/demo/list-data/expand/expand.vue'
+import echarts from '@/views/demo/echarts/echarts.vue'
 export default [
     {
         path:'/list',
@@ -16,5 +17,10 @@ export default [
         path:'/expand',
         name:'expand',
         component:expand
+    },
+    {
+        path:'/echarts',
+        name:'echarts',
+        component:echarts
     }
 ]

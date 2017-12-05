@@ -50,6 +50,7 @@ export default {
             {
               label: '',
               key: 'input',
+              type: 'input',
               desc: '请输入标题'
             }],
             //表单规则
@@ -74,7 +75,7 @@ export default {
       },
       onClickBtnDelete () {
         this.$message('点击的是删除按钮')
-      }
+      },
       // {type,data,dataIndex,list,btn,btnIndex}
       onChangeCurPage (page) {
         this.$message('当前页是第' + page + '页')

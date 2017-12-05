@@ -26,7 +26,7 @@
                     <span class="sb-icon"><i class="material-icons">pie_chart</i></span>
                     <span class="sb-cn">charts</span>
                 </template>
-                <el-menu-item index="BasicCharts"> BasicCharts</el-menu-item>
+                <el-menu-item index="echarts"> echarts</el-menu-item>
             </el-submenu>
 
             <el-submenu index="4">
@@ -91,6 +91,10 @@ export default {
   top: 66px;
   bottom: 0;
   background: #324157;
+}
+.el-menu-vertical-demo{
+    background: #324157;
+    color:#fff;
 }
 .sidebar > ul {
   height: 100%;

@@ -19,7 +19,7 @@
                 :SubmitData="submit_data"
                 :SubmitInfo="submit_info"
                 :TempFieldObj="temp_field_obj"
-                :is="components[field.type] || 'EleInput'"></component>
+                :is="getComponent(field.type)"></component>
         </el-form-item>
 
         <el-form-item>
