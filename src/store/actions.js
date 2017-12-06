@@ -2,6 +2,5 @@
  * 全局actions
  */
 
- export default {
-     
- }
+
+ export default {}

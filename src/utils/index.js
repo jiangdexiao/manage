@@ -1,5 +1,7 @@
 import ajax from './ajax/'
+import cookie from './tool/'
 
-export {
-    ajax
+export{
+    ajax,
+    cookie
 }

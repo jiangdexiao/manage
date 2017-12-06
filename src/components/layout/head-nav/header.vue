@@ -4,7 +4,7 @@
             <!--Logo area-->
             <el-col :xs="8" :sm="8" :md="4">
                 <div class="logo">  
-                    <span class="logo_prefix">媒体管理</span><span class="logo_suffix">平台</span>
+                    <span class="logo_prefix">M2C公共管理</span><span class="logo_suffix">平台</span>
                 </div>
             </el-col>
 

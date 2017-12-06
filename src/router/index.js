@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '@/views/login/login'
+import Main from '@/views/Main'
 import Home from '@/views/Home'
 import mediaManagePlatform from './mediaManagePlatform/'
 import businessManagePlatform from './businessManagePlatform/'
@@ -27,6 +28,12 @@ export default new Router({
       hidden: true,
       component: Login
     }, {
+      path: '/main',
+      name: 'main',
+      hidden: true,
+      component: Main
+    },
+    {
       path: '/home',
       name: 'home',
       hidden: true,

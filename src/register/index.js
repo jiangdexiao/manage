@@ -9,7 +9,7 @@ import components from './components.js'
 import ElementUI from 'element-ui';
 //引入element-ui的默认CSS样式
 import 'element-ui/lib/theme-chalk/index.css';
-
+import '../../static/css/main.css'
 
 /**
  * 把一些全局对象和一些全局方法，注册到Vue原型上

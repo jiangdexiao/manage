@@ -40,3 +40,39 @@ a{text-decoration: none}
 .ql-toolbar{
     background-color: #fff;
 }
+
+/* toolbar css */
+
+.toolbar {
+    padding-bottom: 0px;
+}
+
+.toolbar.btnbar {
+    padding-bottom: 10px;
+}
+
+.toolbar .el-form-item {
+    margin-bottom: 15px !important;
+}
+
+.toolbar input.el-input__inner {
+    height: 36px !important;
+    width: 200px !important;
+}
+
+.toolbar .el-range-input {
+    height: 20px !important;
+    padding: 0 0 5px 0 !important;
+}
+
+.toolbar .el-range-editor.el-input__inner {
+    height: 36px !important;
+    margin-top: 4px !important;
+}
+
+
+/* toolbar 下单个时间 宽度不变*/
+
+.toolbar.private-date .el-date-editor .el-input__inner {
+    width: 220px !important;
+}

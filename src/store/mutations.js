@@ -2,6 +2,5 @@
  * 全局mutations
  */
 
- export default {
-     
- }
+
+ export default {}
