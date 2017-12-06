@@ -1,6 +1,6 @@
-import Fields from './fields/'
+// import Fields from './fields/'
 export default {
-  components: Fields,
+  // components: Fields,
   name: 'form-data',
   data () {
     return {
@@ -8,25 +8,25 @@ export default {
       primary_key: this.PrimaryKey,
       fields: this.FieldList,
       components: {
-        input: 'EleInput',
-        textarea: 'EleTextarea',
-        select: 'EleSelect',
-        radio: 'EleRadio',
-        switch: 'EleSwitch',
-        cascader: 'EleCascader',
-        checkbox: 'EleCheckbox',
-        date: 'EleDate',
-        daterange: 'EleDateRange',
-        year: 'EleDateYear',
-        month: 'EleDateMonth',
-        week: 'EleDateWeek',
-        time: 'EleTime',
-        timerange: 'EleTimeRange',
-        timefixed: 'EleTimeFixed',
-        timefixedrange: 'EleTimeFixedRange',
-        datetime: 'EleDateTime',
-        datetimerange: 'EleDateTimeRange',
-        editor: 'EleEditor'
+        input: 'ele-input',
+        textarea: 'ele-textarea',
+        select: 'ele-select',
+        radio: 'ele-radio',
+        switch: 'ele-switch',
+        cascader: 'ele-cascader',
+        checkbox: 'ele-checkbox',
+        date: 'ele-date',
+        daterange: 'ele-date-range',
+        year: 'ele-date-year',
+        month: 'ele-date-month',
+        week: 'ele-date-week',
+        time: 'ele-time',
+        timerange: 'ele-time-range',
+        timefixed: 'ele-time-fixed',
+        timefixedrange: 'ele-time-fixed-range',
+        datetime: 'ele-date-time',
+        datetimerange: 'ele-date-time-range',
+        editor: 'ele-editor'
       },
       cur_component: '',
       temp_field_obj: {},
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     getComponent(key){
-      return this.components[key] || 'EleInput'
+      return this.components[key] || 'ele-input'
     },
     /**
      * 表单提交事件

@@ -13,7 +13,7 @@
             :key='index'
             :label="field.label"
             :prop='field.key'>
-
+            
             <component
                 :Data="field"
                 :SubmitData="submit_data"

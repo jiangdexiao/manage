@@ -30,5 +30,6 @@ _.each(components, (item, key) => {
     if (cpName && cpName[0] === '-') {
       cpName = cpName.replace('-', '')
     }
+    console.log(item)
     Vue.component(cpName, item)
   })

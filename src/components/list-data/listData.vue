@@ -48,7 +48,7 @@
                             v-for='(btn,index) in field.btns'
                             v-if=" ( !btn.condition || typeof btn.condition !== 'function') || ( btn.condition && btn.condition({list:list,data:scope.row,dataIndex:scope.$index,btnIndex:index,btn:btn}) == true )  "
                             :key='index'
-                            :type="btn.type || 'info'"
+                            :type="'text'"
                             :icon="btn.icon"
                             size="mini"
                             @click='onBtnEvent({btnInfo:btn,data:scope.row,dataIndex:scope.$index,btnIndex:index,list:list})'> {{ btn.text ||''}}</el-button>

@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-menu class="el-menu-vertical-demo" theme="dark" unique-opened router>
+        <el-menu class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" active-text-color="#ffd04b" theme="dark" unique-opened router>
             <el-menu-item index="abstract" >
                
                     <span class="sb-icon"><i class="material-icons">home</i></span>
@@ -32,10 +32,9 @@
             <el-submenu index="4">
                 <template slot="title">
                     <span class="sb-icon"><i class="material-icons">content_paste</i></span>
-                    <span class="sb-cn">Form Elements</span>
+                    <span class="sb-cn">表单控件</span>
                 </template>
-                <el-menu-item index="FormInput"> Form Inputs</el-menu-item>
-                <el-menu-item index="FormLayouts">  Form Layouts</el-menu-item>
+                <el-menu-item index="FormInput"> 表单控件</el-menu-item>
             </el-submenu>
 
              <el-submenu index="5">
@@ -91,10 +90,6 @@ export default {
   top: 66px;
   bottom: 0;
   background: #324157;
-}
-.el-menu-vertical-demo{
-    background: #324157;
-    color:#fff;
 }
 .sidebar > ul {
   height: 100%;
