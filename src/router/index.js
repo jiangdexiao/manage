@@ -6,9 +6,12 @@ import Main from '@/views/Main'
 import Home from '@/views/Home'
 import mediaManagePlatform from './mediaManagePlatform/'
 import businessManagePlatform from './businessManagePlatform/'
+import biManagePlatform from './biManagePlatform/'
+import mediaSaleManagePlatform from './mediaSaleManagePlatform/'
+import sellerManagePlatform from './sellerManagePlatform/'
 import demo from './demo/'
 
-const menus = mediaManagePlatform.concat(demo)
+const routers = mediaManagePlatform.concat(demo).concat(businessManagePlatform).concat(biManagePlatform).concat(sellerManagePlatform).concat(mediaSaleManagePlatform)
 Vue.use(Router)
 
 export default new Router({
@@ -38,7 +41,7 @@ export default new Router({
       name: 'home',
       hidden: true,
       component: Home,
-      children:menus,
+      children:routers,
       redirect(to){
         return 'abstract'
       }

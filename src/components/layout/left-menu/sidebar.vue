@@ -1,18 +1,20 @@
 <template>
     <div class="sidebar">
         <el-menu class="el-menu-vertical-demo" default-active="abstract" background-color="#324157" text-color="#fff" active-text-color="#ffd04b" theme="dark" unique-opened router>
-            <el-menu-item index="abstract" >
-                    <span class="sb-icon"><i class="material-icons">home</i></span>
-                    <span class="sb-cn">摘要</span>
-            </el-menu-item>
-
-            <el-submenu index="2">
-                <template slot="title">
+            
+            <el-row v-for="(item,index) in menus" :key="index">
+                <el-menu-item v-if="item.opened == false" :index="item.menus[0].path" >
                     <span class="sb-icon"><i class="material-icons">perm_data_setting</i></span>
-                    <span class="sb-cn">BD专员管理</span>
-                </template>
-                <el-menu-item index="commissioner">BD专员</el-menu-item>
-            </el-submenu>
+                    <span class="sb-cn">{{item.menus[0].name}}</span>
+                </el-menu-item>
+                <el-submenu v-else :index="index+'_item'">
+                    <template slot="title">
+                        <span class="sb-icon"><i class="material-icons">perm_data_setting</i></span>
+                        <span class="sb-cn">{{item.name}}</span>
+                    </template>
+                    <el-menu-item v-for="(menu,cindex) in item.menus " :key="cindex" :index="menu.path">{{menu.name}}</el-menu-item>
+                </el-submenu>
+            </el-row>
 
             <el-submenu index="3">
                 <template slot="title">
@@ -63,11 +65,16 @@ export default {
       return this.$route.path.replace("/", "");
     }
   },
+  props:{
+      menus:{
+          type:Array
+      }
+  },
   methods: {
     
   },
   mounted() {
-
+      console.log(this.menus)
   }
 };
 </script>
