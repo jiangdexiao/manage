@@ -75,6 +75,7 @@
                 
                 let userInfo = {
                     userId:'',
+                    roleId:'',
                     telNo:'',
                     name:'',
                     token:res.content,
