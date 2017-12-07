@@ -54,12 +54,12 @@ export default {
   },
   methods: {
     ...mapActions(['setUser']),
-    goto (muduleId) {
-        switch(muduleId){
+    goto (moduleId) {
+        switch(moduleId){
             case this.TOOL_MANAGE_PLATFORM:
-                if (href.includes('localhost') || href.includes('m2c2017dev')){
-                    this.BASE_URL = `http://bi.m2c2017dev.com/`
-                }
+                // if (window.href.includes('localhost') || href.includes('m2c2017dev')){
+                //     this.BASE_URL = `http://bi.m2c2017dev.com/`
+                // }
             break;
             case this.BI_MANAGE_PLATFORM:
             
@@ -69,6 +69,7 @@ export default {
             case this.MEDIA_SALE_MANAGE_PLATFORM:break;
             case this.SELLER_MANAGE_PLATFORM:break;
         }
+        this.$router.push({name:'home', query: { moduleId: moduleId } })
     //   console.log('点击的moduleId',this.moduleIds.includes('32df5b285d6c480e9b17219461e147cb'))
     //   console.log('拿到的权限数组',this.moduleIds)
     //   let that = this

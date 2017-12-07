@@ -18,6 +18,7 @@ import EleTimeFixedRange from './EleTimeFixedRange.vue'
 import EleDateTime from './EleDateTime.vue'
 import EleDateTimeRange from './EleDateTimeRange.vue'
 import EleEditor from './EleEditor.vue'
+import EleUpload from './EleUpload.vue'
 
 export default {
   EleInput,
@@ -38,5 +39,6 @@ export default {
   EleTimeFixedRange,
   EleDateTime,
   EleDateTimeRange,
-  EleEditor
+  EleEditor,
+  EleUpload
 }

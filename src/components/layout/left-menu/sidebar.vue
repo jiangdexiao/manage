@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-menu class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" active-text-color="#ffd04b" theme="dark" unique-opened router>
+        <el-menu class="el-menu-vertical-demo" default-active="abstract" background-color="#324157" text-color="#fff" active-text-color="#ffd04b" theme="dark" unique-opened router>
             <el-menu-item index="abstract" >
                     <span class="sb-icon"><i class="material-icons">home</i></span>
                     <span class="sb-cn">摘要</span>
@@ -27,7 +27,19 @@
                     <span class="sb-icon"><i class="material-icons">content_paste</i></span>
                     <span class="sb-cn">表单控件</span>
                 </template>
-                <el-menu-item index="FormInput"> 表单控件</el-menu-item>
+                <el-menu-item index="cascader"> cascader</el-menu-item>
+                <el-menu-item index="checkbox"> checkbox</el-menu-item>
+                <el-menu-item index="date"> date</el-menu-item>
+                <el-menu-item index="datetime"> datetime</el-menu-item>
+                <el-menu-item index="editor"> editor</el-menu-item>
+                <el-menu-item index="input"> input</el-menu-item>
+                <el-menu-item index="radio"> radio</el-menu-item>
+                <el-menu-item index="select"> select</el-menu-item>
+                <el-menu-item index="switch"> switch</el-menu-item>
+                <el-menu-item index="textarea"> textarea</el-menu-item>
+                <el-menu-item index="time"> time</el-menu-item>
+                <el-menu-item index="validate"> validate</el-menu-item>
+                <el-menu-item index="upload"> upload</el-menu-item>
             </el-submenu>
 
              <el-submenu index="5">
@@ -44,34 +56,19 @@
     </div>
 </template>
 <script>
-import { mapActions , mapGetters } from "vuex";
+
 export default {
   computed: {
     onRoutes() {
       return this.$route.path.replace("/", "");
-    },
-    ...mapGetters(['getUser'])
+    }
   },
   methods: {
-    ...mapActions(["getMenuAction"])
+    
   },
-  created() {
-    // this.getMenuAction(['aaa'])
-    // console.log(this.$store.state.m_menu.menus)
-    this.api_common_menu({
-        data:{
-            userId: this.getUser.userId,
-            accessToken: this.getUser.token,
-            moduleId: this.getUser.moduleId
-        }
-    }).then(res => {
-        console.log(res);
-        
-    }).catch(err=>{
-        console.log('请求出错啦')
-    });
-  },
-  mounted() {}
+  mounted() {
+
+  }
 };
 </script>
 <style scoped>

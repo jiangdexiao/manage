@@ -38,7 +38,10 @@ export default new Router({
       name: 'home',
       hidden: true,
       component: Home,
-      children:menus
+      children:menus,
+      redirect(to){
+        return 'abstract'
+      }
     }
   ]
 })

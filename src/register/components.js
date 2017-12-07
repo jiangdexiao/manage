@@ -18,6 +18,7 @@ import {
     EleDateTime,
     EleDateTimeRange,
     EleEditor,
+    EleUpload,
     ListData,
     FormData } from '../components/'
 
@@ -41,6 +42,7 @@ export default{
     EleDateTime,
     EleDateTimeRange,
     EleEditor,
+    EleUpload,
     ListData,
     FormData
 }

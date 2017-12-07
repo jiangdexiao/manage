@@ -17,6 +17,7 @@ import EleTimeFixedRange from './basic/fields/EleTimeFixedRange.vue'
 import EleDateTime from './basic/fields/EleDateTime.vue'
 import EleDateTimeRange from './basic/fields/EleDateTimeRange.vue'
 import EleEditor from './basic/fields/EleEditor.vue'
+import EleUpload from './basic/fields/EleUpload.vue'
 
 import ListData from './list-data/'
 import FormData from './form-data/'
@@ -42,7 +43,7 @@ export{
     EleDateTime,
     EleDateTimeRange,
     EleEditor,
-
+    EleUpload,
     ListData,
     FormData
 }

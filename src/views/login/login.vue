@@ -70,14 +70,12 @@
                 } else {
                   domain = 'm2c2017.com'     // 正式环境
                 }
-                cookie.setCookie('access_token', res.content, 1,'/',domain)
-                cookie.setCookie('auth',md5(res.content),1,'/',domain)
                 
                 let userInfo = {
-                    userId:'',
+                    userId:'1',
                     roleId:'',
                     telNo:'',
-                    name:'',
+                    name:this.form.userName,
                     token:res.content,
                     moduleId:[
                       this.TOOL_MANAGE_PLATFORM,
@@ -88,7 +86,9 @@
                       this.SELLER_MANAGE_PLATFORM,
                     ]
                 }
-                sessionStorage.setItem('user',JSON.stringify(userInfo))
+                cookie.setCookie('access_token', res.content, 1,'/',domain)
+                cookie.setCookie('auth',md5(res.content),1,'/',domain)
+                sessionStorage.setItem('userInfo',JSON.stringify(userInfo))
                 this.setUser()
                 this.$router.push('/main')
               }
