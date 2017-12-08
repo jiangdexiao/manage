@@ -37,7 +37,6 @@
 
 <script>
 import { mapState ,mapGetters, mapActions} from 'vuex'
-import { cookie } from '../utils/'
 export default {
   name: '',
   data () {
@@ -161,9 +160,9 @@ export default {
           type: 'warning'
         }).then(() => {
             this.api_user_loginout({data:{ token:this.getUser.token } }).then(res=>{
-              sessionStorage.removeItem('user')
-              cookie.delCookie('access_token')
-              cookie.delCookie('auth')
+              sessionStorage.removeItem('userInfo')
+              this.tool.cookie.delCookie('access_token')
+              this.tool.cookie.delCookie('auth')
               this.setUser()
               this.$router.push('/login')
             })

@@ -18,7 +18,6 @@
 
   import { mapState , mapActions } from 'vuex'
   import md5 from 'md5'
-  import { cookie } from '../../utils/'
   export default {
     data() {
       return {
@@ -86,8 +85,8 @@
                       this.SELLER_MANAGE_PLATFORM,
                     ]
                 }
-                cookie.setCookie('access_token', res.content, 1,'/',domain)
-                cookie.setCookie('auth',md5(res.content),1,'/',domain)
+                this.tool.cookie.setCookie('access_token', res.content, 1,'/',domain)
+                this.tool.cookie.setCookie('auth',md5(res.content),1,'/',domain)
                 sessionStorage.setItem('userInfo',JSON.stringify(userInfo))
                 this.setUser()
                 this.$router.push('/main')

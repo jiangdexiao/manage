@@ -4,6 +4,7 @@
  */
 import common from './common/'
 import user from './user/'
+import mediaManagePlatform from './mediaManagePlatform/'
 
 export default [
     {
@@ -15,5 +16,10 @@ export default [
         module: 'user',
         name: '用户模块',
         list: user
+    },
+    {
+        module: 'mediaManagePlatform',
+        name: '媒体管理',
+        list: mediaManagePlatform
     }
 ]

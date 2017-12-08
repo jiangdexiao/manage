@@ -1,3 +1,7 @@
 import cookie from './cookie.js'
+import date from './date.js'
 
-export default cookie
+export default{
+    cookie,
+    date
+}

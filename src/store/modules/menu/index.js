@@ -7,7 +7,7 @@ const state = {
 const mutations = {
   [types.GET_MENU](state, menus) {
     console.log(`mutations:${types.GET_MENU+JSON.stringify(menus)}`)
-    state.menus = menus
+    state.menus = localStorage.getItem('menus')
   }
 }
 

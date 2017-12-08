@@ -55,8 +55,10 @@
             console.log(this.getUser)
         },
         mounted(){
-            console.log(`moduleId:${this.$route.query.moduleId}`)
-            this.moduleId = this.$route.query.moduleId
+            
+            this.moduleId = this.$route.query.moduleId || localStorage.getItem('moduleId')
+            localStorage.setItem('moduleId',this.moduleId)
+            console.log(`moduleId:${this.moduleId}`)
             switch(this.moduleId){
                 case this.TOOL_MANAGE_PLATFORM:
                     this.title = '工具管理'
