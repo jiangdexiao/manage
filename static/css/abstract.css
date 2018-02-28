@@ -1,0 +1,103 @@
+
+  .bg_c1 { background: #fff;}
+  .bg_c2 { background-color: #ffca37;}
+  .bg_c3 { background: #F5BD23;}
+  .bg_c4 { background: #61DBEB;}
+  .bg_c5 { background: #11D2EB;}
+  .bg_c6 { background: #E6E8F2;}
+  .bg_c7 { background: #F6626B;}
+  .bg_c8 { background: #00CFC1;} 
+  .bg_c9 { background: #A2D95E;} 
+  .bg_c10 { background: #F7C92A;} 
+  .font_c1 { color: #333 !important;}
+  .border_r1 { border-radius: 4px 4px 0 0;}
+  .text_c {text-align: left !important;}
+  .item_sty1{
+      display: inline-block;
+      margin-right: 15px;
+      width: 250px;
+      height: auto;
+      color: #fff;
+      border-radius: 4px ;
+      font-size: 30px;
+      transition: box-shadow .5s;
+      margin: 20px;
+      text-align: center
+  }
+  .tit_sty1{
+      font-size: 15px;
+      line-height: 40px;
+      text-align: left;
+      padding-left: 20px;
+      color:#fff;
+  }
+  .num_sty1 {
+      line-height: 80px;
+      text-align: right;
+      padding: 0 20px;
+      margin-bottom: 4px;
+  }
+  .project-list {
+      float: left;
+      width: 50%;
+      margin-top: 20px;
+      padding-right:20px; 
+      box-sizing: border-box;
+  }
+  .pad0{
+      padding: 0 !important;
+  }
+  .p_con_box {
+      padding: 20px;
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+  }
+  span {
+      font-size: 15px;
+  }
+  .p_item {
+      width: 100%;
+      display: inline-block;
+      background-color: #fff;
+      margin-right: 15px;
+      vertical-align: top;
+      -webkit-transition: -webkit-box-shadow .5s;
+      transition: -webkit-box-shadow .5s;
+      transition: box-shadow .5s;
+      transition: box-shadow .5s, -webkit-box-shadow .5s;
+      text-align: center;
+      box-sizing: border-box;
+  }
+  .p_text {
+      font-size: 15px;
+      line-height: 32px;
+      width: 90px;
+      border-radius: 5px;
+      color: #fff;
+  }
+  .text_num {
+      font-size: 28px;
+      padding: 25px 0 0;
+  }
+  .w50{
+      width: 50%
+  }
+  .fl {
+      float: left;
+  }
+  .fr {
+      float: right;
+  }
+  .top_text{
+      padding: 10px 20px;
+      background: #FBF5F0;
+      margin: 10px;
+      top: 10px;
+      position: relative;
+  }
+  .text_red {
+      color: red;
+      font-size: 24px!important;
+      margin-right: 15px;
+  }

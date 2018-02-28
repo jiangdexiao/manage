@@ -1,0 +1,187 @@
+
+<!--跟进外部传进来的组织级别 来显示 几层数据 ep：level=1 显示可选择国家  level=2  可选择国家和地区。。。-->
+<template>
+    <div>
+        <el-cascader  placeholder="请选择所属组织" :options="list" v-model="selected" @change="change" @active-item-change="regionHandleItemChange"  class="form-input" clearable >
+        </el-cascader>
+    </div>
+</template>
+
+<script>
+export default {
+  data(){
+      return{
+           //缓存点击的区域项
+            tempArea:null,
+            //缓存父级index
+            parentIndex:[],
+            list:[],
+            selected:[],
+            level:''
+      }
+  },
+  methods:{
+      change(val){
+          this.$emit('selected',val);
+      },
+      //val 值为数组
+        regionHandleItemChange(val) {
+            if( !val || val.length == 0){//清空
+                this.$emit('selected','');
+                return;
+            }
+            
+            this.$emit('selected',val);//这里要返回一个数组
+            val =  val[val.length-1];
+            let parentOrgId = val.split('-')[0];
+            let orgLevel = parseInt(val.split('-')[1]);
+            let indNum = val.split('-')[2];
+            
+            if( this.level === 1 ){
+                return
+            }else{
+                if( orgLevel == 0){
+                    this.parentIndex = [];
+                    this.parentIndex[0]= indNum;
+                    this.tempArea = this.list.find(p => p.value === val.toString());
+                }
+                else if( orgLevel != 0){ 
+                    this.parentIndex = this.parentIndex.slice(0,parseInt(orgLevel)+1);
+                    this.parentIndex[parseInt(orgLevel)]= indNum;
+                    for(var i=0; i<this.parentIndex.length; i++){
+                         var ind = this.parentIndex[i];
+                         if(i==0){
+                             this.tempArea= this.list[ind]
+                         }else {
+                             if(this.tempArea.children){
+                                 this.tempArea= this.tempArea.children[ind]
+                             }else{
+                                 this.tempArea= this.tempArea
+                             }
+                         }
+                    }
+                }else {
+                    this.tempArea = this.tempArea && this.tempArea.children && this.tempArea.children.find(p => p.value === val.toString());
+                }
+                this.init(orgLevel+1,parentOrgId,this.tempArea);
+            }
+        },
+        getCitys(orgLevel,parentOrgId,obj){
+            this.api_common_bdorg({data:{ orgLevel: orgLevel,parentOrgId:parentOrgId}}).then(res=>{
+                if( res.content && res.content.length>0){
+                    obj.children = res.content.map(item => {
+                        let temp = { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel }
+                        if( this.selected.toString().indexOf(temp.orgId) !=-1 ){
+                            this.getCitys(orgLevel+1,item.orgId,temp)
+                        }
+                        return temp
+                    })
+                }
+            })
+        },
+      //获取国家 国家orgLevel =0  大区 orgLevel=1 城市 orgLevel=2 区域 orgLevel =3 BOM orgLevel =4
+        init(orgLevel=0,parentOrgId=0,obj = this){
+            // 默认触发新增/修改 所属组织
+            this.api_common_bdorg({data:{ orgLevel: orgLevel,parentOrgId:parentOrgId}}).then(res=>{
+                if( res.content.length == 0){
+                    delete obj.children;
+                    return;
+                } 
+                if( orgLevel === 0){
+                    obj.list = res.content.map((item,i) => {
+                        if( this.level === 1){//如果当前要编辑的组织级别是省份 则上级组织只显示国家
+                            return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel};
+                        }else{
+                            let temp = { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel,children:[]}
+                            if( this.selected.toString().indexOf(item.orgId) !=-1){
+                                this.getCitys(orgLevel+1,parentOrgId,temp)
+                            }
+                            return temp
+                            // return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel, children: []};
+                        }
+                    });
+                }else if( orgLevel === 1 ){
+                    obj.children = res.content.map((item,i) => {
+                        if( this.level === 1 || this.level === 2){//如果当期要编辑的组织级别是城市  则上级组织只显示到国家->省
+                            return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel};
+                        }
+                        else{
+                            let temp = { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel,children:[]}
+                            if( this.SelectVal.toString().indexOf(item.orgId) !=-1){
+                                this.getCitys(orgLevel+1,parentOrgId,temp)
+                            }
+                            return temp
+                            // return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel, children: [] };
+                        }
+                    });
+                }else if( orgLevel === 2){
+                    obj.children = res.content.map((item,i) => {
+                        if( this.level === 1 || this.level === 2 || this.level === 3){//如果当期要编辑的组织级别是区域  则上级组织只显示到国家->省->城市
+                            return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel};
+                        }
+                        else{
+                            let temp = { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel,children:[]}
+                            if( this.SelectVal.toString().indexOf(item.orgId) !=-1){
+                                this.getCitys(orgLevel+1,parentOrgId,temp)
+                            }
+                            return temp
+                            // return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel, children: [] };
+                        }
+                    });
+                }else if( orgLevel === 3){
+                    obj.children = res.content.map((item,i) => {
+                        if( this.level === 1 || this.level === 2 || this.level === 3 || this.level === 4){//如果当期要编辑的组织级别是区域  则上级组织只显示到国家->省->城市->区域
+                            return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel};
+                        }else{
+                            let temp = { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel,children:[]}
+                            if( this.SelectVal.toString().indexOf(item.orgId) !=-1){
+                                this.getCitys(orgLevel+1,parentOrgId,temp)
+                            }
+                            return temp
+                            // return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel, children: [] };
+                        }
+                    });
+                }
+                else if( orgLevel == 4){
+                    obj.children = res.content.map((item,i) => {
+                        return { label: item.orgName, value: `${item.orgId}-${orgLevel}-${i}-${parentOrgId}`,orgLevel:orgLevel};
+                    });
+                }
+            })
+        }
+  },
+  mounted(){
+    //   this.init();//默认不加载 显示的时候在加载
+  },
+  props:{
+      SelectVal:{
+          type:Array
+      },
+      Level:{
+          type:Number
+      }
+  },
+  watch:{
+      SelectVal(v){
+          console.log('seleted:'+v)
+          this.selected = []
+          if( v && v != ""){
+            this.selected = v
+            this.init()
+          }
+      },
+      Level(v){
+          console.log('level:'+v)
+          this.level = ''
+          if(v && v!=""){
+            this.level = v
+            this.init()
+          }
+      }
+  }
+}
+</script>
+
+<style>
+
+</style>

@@ -2,102 +2,40 @@
     <div class="header">
         <el-row :gutter="10">
             <!--Logo area-->
-            <el-col :xs="8" :sm="8" :md="4">
+            <el-col :xs="10" :sm="10" :md="4">
                 <div class="logo">  
-                    <span class="logo_prefix">{{ title || 'M2C公共管理'}}</span><span class="logo_suffix">平台</span>
+                    <i class="logo_image"></i>
+                    <span class="logo_prefix">拍获 |</span><span class="logo_suffix">&nbsp;{{title}}</span>
                 </div>
             </el-col>
 
-           <el-col :xs="8" :sm="{span:2,offset:6}" :md="{span:2,offset: 16}" >
+            <!-- <el-col :xs="8" :sm="{span:4,offset:6}" :md="{span:2,offset: 14}" >
                 <div class="header-right">
-                   <el-col :span="10">
-                        <!--这是消息的下拉列表 用了element里的 dropdown组件-->                
-                        <el-dropdown menu-align="start" >
-                            <span>
-                                <el-badge :value="5" class="item">
-                                    <i class="el-icon-message"></i>
-                                </el-badge>
-                            </span>
-                            <el-dropdown-menu slot="dropdown" >
-                                <el-dropdown-item >
-                                <span class="pop-title">You have new messages! </span>
-                                </el-dropdown-item>
-
-                                <el-dropdown-item  v-for="dialog in dialogs" :key="dialog.time" divided>
-                                    <div class="pop-div">
-                                        <span class="pop-image">
-                                            <img :src="dialog.header" width="50px" >
-                                        </span>
-                                        <span class="pop-content">
-                                        {{dialog.content}}
-                                        </span>
-                                        <span class="pop-time">
-                                            {{dialog.time}}分钟前
-                                        </span>
-                                    </div>
-                                </el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </el-col>    
-                    <el-col :span="8">  
-                        <el-dropdown menu-align="start"  >
-                            <span >
-                                <el-badge :value="3" class="item">
-                                    <i class="el-icon-date"></i>
-                                </el-badge>
-                            </span>
-                            <el-dropdown-menu slot="dropdown" >
-                                <el-dropdown-item >
-                                <span class="pop-title">You have new tasks! </span>
-                                </el-dropdown-item>
-                                <el-dropdown-item v-for="task in tasks" :key="task.id" divided>
-                                    <div class="task-div">
-                                        <span class="task-span task-tag">
-                                        <el-tag type="danger" v-if="task.rank==1">紧急</el-tag>
-                                        <el-tag type="warning" v-if="task.rank==2">重要</el-tag>
-                                        <el-tag type="success" v-if="task.rank==3">正常</el-tag>
-                                        </span>
-                                        <span class="task-span task-content">
-                                        {{task.content}}<br/>
-                                        <span class="task-time">截止：{{task.overTime}}</span>
-                                        </span>
-                                        
-                                        <span class="task-span task-btn"><el-button type="primary" size="mini">完成</el-button></span>
-                                    </div>
-                                </el-dropdown-item>
-
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </el-col>   
+                   
                 </div>
-            </el-col>
-         
-            <el-col :xs="8" :sm="8" :md="2" >
+            </el-col> -->
+            <el-col :xs="{span:8,offset:6}" :sm="{span:6,offset:8}" :md="{span:4,offset: 16}"  >
                 <div class="user-header">
-                    <el-dropdown trigger="click" menu-align="start">
-                        <img src="../../../../static/images/b_header.jpg" width="50px" />
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item >
-                                <div class="setting-div">
-                                    <span class="setting-icon"><i class="material-icons">account_box</i></span> 
-                                    <span class="setting-string"> Profile  个人</span>
-                                </div>
-                            </el-dropdown-item>
-                            <el-dropdown-item divided>
-                                <div class="setting-div">
-                                    <span class="setting-icon"><i class="material-icons">settings</i></span> 
-                                    <span class="setting-string"> Settings  设置</span>
-                                </div>
-                            
-                            </el-dropdown-item>
-                            <el-dropdown-item divided>
-                                <div class="setting-div">
-                                    <span class="setting-icon"><i class="material-icons">assignment_return</i></span> 
-                                    <span class="setting-string"> Sign out  退出</span>
-                                </div>
-                            </el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-col :xs="16" :sm="18" :md="20" style="text-align:right;padding-right:15px;" >
+                        <el-dropdown trigger="click" menu-align="start">
+                          <span style="width:150px;">您好{{userName}}<i class="el-icon-arrow-down"></i></span>
+                          <el-dropdown-menu slot="dropdown">
+                              <el-dropdown-item >
+                                  <div class="setting-div" @click="viewPersonInfo">
+                                      <span class="setting-string"><i class="iconfont icon-user"></i>个人信息</span>
+                                  </div>
+                              </el-dropdown-item>
+                              <el-dropdown-item >
+                                  <div class="setting-div" @click="setPassword" >
+                                      <span class="setting-string"><i class="iconfont icon-mima"></i> 修改密码</span>
+                                  </div>
+                              </el-dropdown-item>
+                          </el-dropdown-menu>
+                      </el-dropdown>
+                    </el-col>
+                    <el-col :xs="8" :sm="6" :md="4">
+                      <el-button type="text" style="color:#fff" @click="loginout">退出</el-button>
+                    </el-col>
                 </div>
             </el-col>
         </el-row>
@@ -108,37 +46,44 @@
 export default {
   data() {
     return {
-      name: "linxin",
-      dialogs: [
-        {
-          header: "",
-          content: "我有一个Style样式需要您帮忙处理以下。",
-          time: "3"
-        }
-      ],
-      tasks: [
-        {
-          id: 1,
-          rank: 1,
-          content: "完成JSPangAdmin头部头部组件的编写。",
-          overTime: "2017/3/9"
-        },
-        { id: 2, rank: 2, content: "完成GitHub仓库的初始化工作。", overTime: "2017/3/15" },
-        {
-          id: 3,
-          rank: 3,
-          content: "在阿里云进行网站备案，完成后通知组长。",
-          overTime: "2017/3/20"
-        }
-      ]
-    };
+
+    }
   },
   props:{
     title:{
       type:String
+    },
+    userName:{
+      type:String
+    },
+    token:{
+      type:String
     }
   },
-  methods: {}
+  methods: {
+    loginout(){
+       this.$confirm('确定退出吗', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            this.api_user_loginout({data:{ token:this.token } }).then(res=>{
+              sessionStorage.clear()
+              this.tool.cookie.delCookie('access_token')
+              this.tool.cookie.delCookie('auth')
+              this.$router.push({path:'/login'})
+            })
+        }).catch(() => {
+      
+        });
+    },
+    setPassword(){
+      this.$emit('setPassword',true)
+    },
+    viewPersonInfo(){
+      this.$emit('viewPersonInfo',true)
+    }
+  }
 };
 </script>
 <style scoped>
@@ -146,11 +91,12 @@ export default {
   position: fixed;
   box-sizing: border-box;
   width: 100%;
-  height: 66px;
+  height: 60px;
 
   font-size: 14px;
-  line-height: 66px;
-  background-color: #324157;
+  line-height: 60px;
+  background-image: linear-gradient(-269deg, #2F9CFF 0%, #0086FF 44%, #0078E4 100%);
+  /* background-color: #324157; */
   box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   padding: 0 32px 0 40px;
@@ -158,14 +104,26 @@ export default {
 }
 .header .logo {
   float: left;
+  padding-left:2rem;
   cursor: pointer;
-  font-size: 22px;
+  font-size:20px;
+  font-weight:600;
 }
+.logo_image{
+  position: absolute;
+  width:2rem;
+  height: 1.88rem;
+  top:1.21rem;
+  left:-0.1rem;
+  background:url('../../../../static/images/logo.png') no-repeat;
+}
+
 .logo_prefix {
-  color: #209e91;
+  color: #fff;
 }
 .logo_suffix {
   color: #fff;
+  font-size: 16px;
 }
 .header .search {
   float: left;
@@ -180,29 +138,43 @@ export default {
   color: #fff;
 }
 .header-right {
-  padding-top: 25px;
-  line-height: 10px;
+  /* padding-top: 25px; */
+  height: 66px;
+  line-height: 66px;
 }
 .header-right span {
-  display: inline-block;
+  /* display: inline-block; */
   margin-left: 14px;
   font-size: 18px;
   color: #fff;
-  line-height: 1px;
+  /* line-height: 1px; */
   height: 18px;
   cursor: pointer;
 }
-.header-right span:hover {
-  color: #209e91;
-}
+
 .user-header {
-  line-height: 10px;
-  padding-top: 7px;
-  font-size: 12px;
+  /* line-height: 10px; */
+  /* padding-top: 7px; */
+  font-size: 18px;
+  color: #fff;
+  font-size: 14px;
+}
+.user-header span{
+  font-size: 18px;
+  color: #fff;
+  font-size: 14px;
+}
+.user-header span:hover{
+  cursor: pointer;
 }
 .user-header img {
   border-radius: 50%;
   cursor: pointer;
+}
+.user-header a{
+  cursor: pointer;
+  display:inline-block;
+  width:60px;
 }
 .pop-image {
   display: block;
@@ -267,4 +239,13 @@ export default {
   padding-top: 3px;
   padding-right: 3px;
 }
+/* .pull_nav_set {
+  top: 24px;
+  background: url("../assets/images/ico_header_set.png") no-repeat;
+}
+.pull_nav_modify {
+  top: 64px;
+  background: url("../assets/images/ico_header_password.png")
+    no-repeat;
+} */
 </style>

@@ -1,0 +1,666 @@
+html, body, h1, h2, h3, h4, h5, h6, hr, p, iframe, dl, dt, dd, ul, ol, li, pre, form, button, input, textarea, th, td, fieldset {
+  margin: 0;
+  padding: 0
+}
+
+ul, ol, dl {
+  list-style-type: none
+}
+
+html, body {
+  *position: static
+}
+
+html {
+  font-family: 'MicrosoftYaHei' !important;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%
+}
+
+address, caption, cite, code, dfn, em, th, var {
+  font-style: MicrosoftYaHei;
+  font-weight: normal
+}
+
+input, button, textarea, select, optgroup, option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit
+}
+
+input, button {
+  overflow: visible;
+  vertical-align: middle;
+  outline: none
+}
+
+body, th, td, button, input, select, textarea {
+  font-family: "Microsoft Yahei", "Hiragino Sans GB", "Helvetica Neue", Helvetica, tahoma, arial, Verdana, sans-serif, "WenQuanYi Micro Hei", "\5B8B\4F53";
+  font-size: 12px;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased
+}
+
+.clear {
+  clear: both;
+  overflow: hidden;
+}
+
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.bi-content {
+  min-width: 1200px;
+}
+
+.show-box {
+  z-index: 1;
+}
+
+.gk-table {
+  width: 100%;
+  text-align: center;
+  thead {
+    height: 40px;
+    /*line-height: 40px;*/
+    vertical-align: middle;
+    font-size: 14px;
+    color: #666;
+    font-weight: normal;
+    background: -webkit-linear-gradient(#fff, #ececec); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#fff, #ececec); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#fff, #ececec); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#fff, #ececec); /* 标准的语法 */
+  }
+  th {
+    position: relative;
+    font-size: 13px;
+    color: #666;
+    height: 40px;
+    /*line-height: 40px;*/
+    vertical-align: middle;
+    text-align: center;
+    font-weight: normal;
+    border-right: 1px solid #fff;
+    &:last-child {
+      border-right: 0;
+    }
+
+  }
+  tbody {
+    font-size: 11px;
+    .title {
+      height: 30px;
+      line-height: 30px;
+      background: -webkit-linear-gradient(#fff, #ececec); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(#fff, #ececec); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(#fff, #ececec); /* Firefox 3.6 - 15 */
+      background: linear-gradient(#fff, #ececec); /* 标准的语法 */
+      td {
+        border-right: 1px solid #fff;
+        color: #666;
+        position: relative;
+        span {
+          font-size: 11px;
+        }
+        &:last-child {
+          border-right: 0;
+        }
+        .bottom-tips {
+          position: absolute;
+          right: 0px;
+          top: 0;
+          line-height: 32px;
+          .el-tooltip {
+            font-size: 16px;
+            display: inline;
+            padding: 6px 4px;
+            border: 0;
+            background-color: transparent;
+            span {
+              font-size: 16px;
+            }
+          }
+          .el-button:focus, .el-button:hover {
+            color: #5a5e66;
+            border-color: transparent;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+    .data {
+      height: 80px;
+      vertical-align: middle;
+      background-color: #fff;
+      td {
+        border-right: 1px solid #f5f5f5;
+        color: #333;
+        font-size: 14px;
+        position: relative;
+        &:last-child {
+          border-right: 0;
+        }
+        p {
+          padding: 0 5px 4px 5px;
+          overflow: hidden;;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+      }
+    }
+    td {
+      width: 7.14%;
+      vertical-align: middle;
+    }
+  }
+}
+
+.top-table {
+  width: 100%;
+  margin-top: 10px;
+  thead {
+    font-size: 14px;
+    background: linear-gradient(#fff, #ececec);
+    th {
+      font-size: 13px;
+      color: #666;
+      height: 40px;
+      vertical-align: middle;
+      text-align: center;
+      font-weight: normal;
+      border-right: 1px solid #fff;
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+  tbody {
+    font-size: 11px;
+    text-align: center;
+    .title {
+      height: 30px;
+      line-height: 30px;
+      background: -webkit-linear-gradient(#fff, #ececec); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(#fff, #ececec); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(#fff, #ececec); /* Firefox 3.6 - 15 */
+      background: linear-gradient(#fff, #ececec); /* 标准的语法 */
+      td {
+        border-right: 1px solid #fff;
+        color: #666;
+        font-size: 11px;
+        position: relative;
+        span {
+          font-size: 14px;
+        }
+        &:last-child {
+          border-right: 0;
+        }
+      }
+      .bottom-tips {
+        position: absolute;
+        right: 20px;
+        top: 0;
+        .el-tooltip {
+          font-size: 16px;
+          display: inline;
+          padding: 0 4px;
+          border: 0;
+          background-color: transparent;
+        }
+        .el-button:focus, .el-button:hover {
+          color: #5a5e66;
+          border-color: transparent;
+          background-color: transparent;
+        }
+      }
+    }
+    .data {
+      height: 80px;
+      vertical-align: middle;
+      background-color: #fff;
+      td {
+        border-right: 1px solid #f5f5f5;
+        color: #333;
+        font-size: 14px;
+        position: relative;
+        &:last-child {
+          border-right: 0;
+        }
+        p {
+          padding: 0 5px 4px 5px;
+          overflow: hidden;;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+        .bottom-tips {
+          position: absolute;
+          right: 20px;
+          bottom: 0;
+          .down-arrow {
+            color: #f00;
+            font-size: 14px;
+          }
+          .up-arrow {
+            color: green;
+            font-size: 14px;
+          }
+          > span {
+            font-size: 10px;
+          }
+          .el-tooltip {
+            font-size: 14px;
+            display: inline;
+            padding: 6px 4px;
+            border: 0;
+            background-color: transparent;
+          }
+          .el-button:focus, .el-button:hover {
+            color: #5a5e66;
+            border-color: transparent;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+    td {
+      width: 7.14%;
+      vertical-align: middle;
+    }
+  }
+}
+
+/* 图表*/
+
+.chart {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #eee;
+  height: 100%;
+  margin-top: 10px;
+}
+
+.charts-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 13px;
+  color: #333;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  background: -webkit-linear-gradient(#fff, #ececec); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#fff, #ececec); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#fff, #ececec); /* Firefox 3.6 - 15 */
+  background: linear-gradient(#fff, #ececec); /* 标准的语法 */
+  z-index: 99;
+  .iconfont {
+    //font-size: 13px;
+    padding-right: 3px;
+  }
+}
+
+/******  tab 切换*****/
+.charts-tab {
+  width: 120px;
+  position: absolute;
+  top: 50px;
+  left: 15px;
+  z-index: 999;
+  cursor: pointer;
+  li {
+    height: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    line-height: 25px;
+    background: -webkit-linear-gradient(#fff, #ececec); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#fff, #ececec); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#fff, #ececec); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#fff, #ececec); /* 标准的语法 */
+    &.on {
+      color: #2F9CFF;
+    }
+  }
+}
+
+.tab_chart_horiz {
+  padding-left: 150px;
+}
+
+/*餐饮分析*/
+.food-analysis {
+  .charts-trend {
+    height: 370px;
+  }
+
+  /* 订单分析下拉框*/
+  .order-select {
+    width: 180px;
+    position: absolute;
+    right: 30px;
+    top: -8px;
+    font-size: 12px;
+    .el-input__inner {
+      height: 26px;
+      font-size: 12px;
+    }
+  }
+  .order-analyzing-box {
+    height: 370px;
+    //margin-top: 50px;
+    padding: 50px 30px 15px 30px;
+  }
+  .order-analyzing {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    tr th, td {
+      border: 1px solid #ddd;
+    }
+    thead {
+      background-color: #f0f0f0;
+      th {
+        width: 14.28%;
+        color: #666;
+        height: 25px;
+        vertical-align: middle;
+        &:nth-child(2), &:nth-child(3) {
+          color: #333;
+        }
+      }
+    }
+    tbody {
+      td {
+        height: 25px;
+        vertical-align: middle;
+        color: #666;
+        width: 14.28%;
+        p {
+          width: 100%;
+          height: 25px;
+          line-height: 25px;
+          padding: 0 5px;
+          /* overflow: hidden;
+           -ms-text-overflow: ellipsis;
+           text-overflow: ellipsis;*/
+          //white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+        }
+        /* &:first-child {
+           background-color: #f0f0f0;
+           color: #333;
+         }*/
+      }
+    }
+  }
+}
+
+/* 销售报表*/
+.sales-report {
+  //margin-top: 20px;
+  background-color: #fff;
+  height: 100%;
+  .main {
+    margin-top: 20px;
+  }
+  .statement {
+    width: 100%;
+    text-align: center;
+    tr th, td {
+      border: 1px solid #ddd;
+    }
+    thead {
+      background-color: #f0f0f0;
+      th {
+        color: #333;
+        height: 30px;
+        vertical-align: middle;
+        /*  &:nth-child(2), &:nth-child(3) {
+            color: #333;
+          }*/
+      }
+    }
+    tbody {
+      td {
+        height: 50px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.el-date-editor .el-range__close-icon {
+  width: 20px;
+}
+
+/* 销售报表工具栏*/
+.top-tool {
+  padding: 10px;
+  padding-bottom: 0;
+  .report-btn {
+    position: relative;
+    height: 36px;
+    padding: 6px 20px;
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+      background-color: transparent;
+    }
+  }
+  .select-industry {
+    .el-input__inner {
+      width: 115px;
+    }
+  }
+}
+
+/************ 优惠券 详情 **********/
+.coupon_detail {
+  .top-ul {
+    margin-bottom: 10px;
+    li {
+      height: 30px;
+      line-height: 30px;
+      div {
+        display: inline-block;
+        width: 290px;
+        color: #333;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.coupon-chart {
+  margin-top: 10px;
+  background-color: #fff;
+  padding: 10px;
+  .chart-bg {
+    margin-top: 8px;
+    width: 50%;
+    min-width: 700px;
+    padding: 0 0 30px 30px;
+    background-color: #f0f3f4;
+  }
+}
+/*餐饮媒体分析*/
+.transform_parse {
+  margin: 115px auto 0 auto;
+  width: 280px;
+  position: relative;
+  .bar-type-box {
+    position: relative;
+    .left {
+      position: absolute;
+      top: 45px;
+      left: -120px;
+      color: #666;
+      z-index: 990;
+      li {
+        font-size: 10px;
+        position: relative;
+        height: 50px;
+        line-height: 45px;
+        -webkit-transform: scale(.8);
+        -moz-transform: scale(.8);
+        -o-transform: scale(.8);
+        transform: scale(.8);
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 23px;
+          border-bottom: 1px solid #ccc;
+          z-index: 999;
+        }
+        &:first-child {
+          left: -10px;
+          &:after {
+            width: 76px;
+            left: 118px;
+          }
+        }
+        &:nth-child(2) {
+          &:after {
+            left: 118px;
+            width: 90px;
+          }
+        }
+        &:nth-child(3) {
+          &:after {
+            left: 124px;
+            width: 115px;
+          }
+        }
+      }
+    }
+    .right {
+      position: absolute;
+      top: 0;
+      right: -100px;
+      color: #666;
+      z-index: 990;
+      font-size: 10px;
+
+      li {
+        position: relative;
+        height: 50px;
+        line-height: 50px;
+        span {
+          font-size: 10px;
+          -webkit-transform: scale(.8);
+          -moz-transform: scale(.8);
+          -o-transform: scale(.8);
+          transform: scale(.8);
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 23px;
+          border-bottom: 1px solid #ccc;
+          z-index: 999;
+        }
+        &:first-child {
+          &:after {
+            left: -48px;
+            width: 41px;
+          }
+        }
+        &:nth-child(2) {
+          &:after {
+            left: -76px;
+            width: 70px;
+          }
+        }
+        &:nth-child(3) {
+          &:after {
+            left: -94px;
+            width: 90px;
+          }
+        }
+        &:nth-child(4) {
+          &:after {
+            left: -124px;
+            width: 115px;
+          }
+        }
+      }
+    }
+  }
+  .bar-type {
+    height: 50px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    position: relative;
+    &:first-child {
+      background-color: #1549a3;
+      z-index: 99;
+    }
+    &:nth-child(2) {
+      background-color: #1067c5;
+    }
+    &:nth-child(3) {
+      background-color: #378ade;
+    }
+    &:nth-child(4) {
+      background-color: #a6cdf0;
+    }
+  }
+  .shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 280px;
+    /*background-color: #fff;*/
+    border-width: 200px 120px 0;
+    border-style: solid;
+    border-color: transparent #fff;
+    z-index: 99;
+  }
+}
+
+

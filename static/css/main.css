@@ -3,14 +3,17 @@ html,body,#app,.wrapper{
     width:100%;
     height:100%;
     overflow: hidden;
-    
+
 }
+button,a,span,div,ul,li{outline:none;}
 body{
     font-family:"Helvetica Neue",Helvetica, "Microsoft YaHei", Arial, STHeiTi, sans-serif;
     color:#777777;
 }
-a{text-decoration: none}
-
+a{cursor: pointer; color:blue; text-decoration: none}
+a:hover{
+    color:skyblue;
+}
 .el-badge__content{
     border:0px !important;
 }
@@ -19,13 +22,14 @@ a{text-decoration: none}
     position: absolute;
     left: 200px;
     right: 0;
-    top: 66px;
+    top: 112px;
     bottom:0;
     width: auto;
-    padding:25px 40px 25px 40px;
+    padding:5px 15px 15px 15px;
     box-sizing: border-box;
     overflow-y: scroll;
 }
+
 .clear{
     width:100%;
     height:0px;
@@ -50,9 +54,26 @@ a{text-decoration: none}
 .toolbar.btnbar {
     padding-bottom: 10px;
 }
-
+.toolbar .el-form--inline .el-form-item{
+    vertical-align: middle;
+    margin-right:0px;
+}
 .toolbar .el-form-item {
-    margin-bottom: 15px !important;
+    margin-bottom: 0px !important;
+}
+.settlement  .el-form-item {
+    margin-bottom: 12px;
+}
+
+.toolbar .el-input{
+    margin-right:0 !important;
+}
+.coupon_input .el-input {
+  width: 100%;
+}
+
+.coupon_input .el-textarea__inner {
+  height:100px;
 }
 
 .toolbar input.el-input__inner {
@@ -70,9 +91,374 @@ a{text-decoration: none}
     margin-top: 4px !important;
 }
 
-
 /* toolbar 下单个时间 宽度不变*/
 
 .toolbar.private-date .el-date-editor .el-input__inner {
     width: 220px !important;
 }
+
+.el-pagination .el-select .el-input .el-input__inner {
+  padding-right: 25px!important;
+  border-radius: 3px!important;
+  height: 28px!important;
+  width: 100px!important;
+}
+
+.el-pagination__editor.el-input .el-input__inner {
+  height: 28px!important;
+  width: 46px!important;
+}
+
+/*表单样式form*/
+.edit-form .el-textarea__inner{
+    width:200px;
+    height:100px;
+}
+
+.edit-form .el-input-group{
+    width:200px;
+}
+
+/*默认编辑弹出框样式dialog*/
+.dialog {
+    width: 700px;
+    height: 700px;
+  }
+.dialog .el-dialog__body {
+    height: 540px;
+    overflow-y: auto;
+}
+.dialog .el-dialog__footer{
+    padding:0px;
+}
+button {
+    cursor: pointer;
+}
+/* 选择商品弹框样式 */
+.dialog.chose_goods {
+    width: 870px;
+    height: 700px;
+}
+/* 选择商品弹框样式 (品质生活和人气推荐)*/
+.dialog.popular_goods {
+    width: 720px;
+    height: 700px;
+}
+  /*表格样式 财务管理*/
+  .tableBox{
+    margin: 0 30px 30px 30px;
+    text-align: center;
+
+}
+.tableBox .el-table th {
+  text-align: center;
+}
+.tableBox .pages{
+  float: left;
+  margin-top:10px;
+}
+/* 设置定时弹框样式 */
+.dialog.set_time {
+    width: 500px;
+    height: 260px;
+}
+.dialog.set_time .el-dialog__body {
+    width: 500px;
+    height: 260px;
+}
+.el-popover {
+    padding: 0px!important;
+    z-index: 99999!important;
+}
+.el-popover .import_label {
+    width: 260px;
+    height: 480px;
+    padding: 0px;
+    background: #fff;
+    /* border: 1px solid #CCCCCC; */
+    border-radius: 3px;
+    box-shadow: 1px #CCCCCC;
+}
+.el-popover .import_label .import_label_top {
+    height: 85px;
+    color: #777777;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 15px;
+}
+.el-popover .import_label .import_label_top .add_tag {
+    text-align: left;
+}
+.el-popover .import_label .import_label_top input {
+    width: 160px;
+    height: 32px;
+    border-radius: 2px;
+    border: 1px solid #E6E8F2;
+    color: #CCCCCC;
+    font-size: 12px;
+    padding-left: 6px;
+    margin-left: 21px;
+    margin-right: 3px;
+    box-sizing: border-box;
+    outline: none;
+}
+.el-popover .import_label .import_label_top span {
+    font-size: 12px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+.el-popover .import_label .import_label_top .span_left {
+    color: #0086FF;
+}
+.el-popover .import_label .import_label_top .span_right {
+    color: #999999;
+}
+.el-popover .import_label .import_label_top p {
+    margin-bottom: 10px;
+}
+.el-popover .import_label .import_label_top button {
+    width:120px;
+    height:32px;
+    background:#F9FAFE;
+    border-radius: 2px;
+    color: #0086FF;
+    border: 1px solid #E6E8F2;
+    cursor: pointer;
+}
+.el-popover .import_label .import_label_content {
+    height: 333px;
+    border-top: 1px solid #E6E8F2;
+    border-bottom: 1px solid #E6E8F2;
+    padding-top: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.el-popover .import_label .font_label {
+    width: 80px;
+    height: 30px;
+    background: #0086FF;
+    border-radius: 2px;
+    color: #fff;
+    margin-top: 13px;
+    cursor: pointer;
+}
+.el-popover .import_label .font_label_left {
+    border: none;
+    margin-left: 30px;
+    margin-right: 36px;
+  }
+.el-popover .import_label .font_label_right {
+    background: #fff;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+}
+/* 设置商品品类弹框样式 */
+.dialog.goods_classify .el-dialog__body {
+    width: 480px;
+    height: 480px;
+}
+.dialog.goods_classify  {
+    width: 480px;
+    height: 480px;
+}
+.dialog.module_life_style {
+    width: 720px;
+    height: 700px;
+}
+/* 静态内容弹框样式 */
+.dialog_static {
+    width: 700px;
+    max-height: 700px;
+}
+/* 寻宝地图批量更改广告位图标弹框样式 */
+.dialog_batch_ad {
+    width:500px;
+    max-height: 300px;
+}
+.dialog_batch_ad .el-dialog__header {
+    padding-top: 20px;
+}
+.dialog_batch_ad .el-dialog__body{
+        padding: 0 70px 30px 70px;
+}
+
+.dialog_static .el-dialog__body {
+    max-height: 480px;
+    overflow: auto;
+}
+/* 首页预览弹框样式 */
+.dialog.preview_home {
+    width: 350px;
+    height: 700px;
+}
+.dialog.dialog.map-dialog{
+    width: 780px;
+    height: 610px;
+}
+.el-dialog__headerbtn {
+    z-index: 200;
+}
+.el-input__suffix {
+  right: 20px!important;
+}
+.date_style_add {
+    margin-left: -26px;
+}
+.date_style_add .el-date-editor .el-input__inner {
+    width: 145px!important;
+}
+.date_style_add .el-input__suffix {
+    right: 80px!important;
+    top: -2px;
+}
+/* 结算明细时间选择器样式 */
+.el-input--prefix .el-input__inner {
+    padding-left: 60px!important;
+}
+/*地图弹出框样式*/
+.dialog.map-dialog .el-dialog__body{
+    height: 580px;
+    overflow: hidden;
+    padding:0px;
+}
+/*二级列表弹出框样式*/
+.dialog.list-dialog {
+    width: 1300px;
+    height:760px;
+  }
+.dialog.list-dialog .el-dialog__body {
+    height: 650px;
+    overflow-y: scroll;
+  }
+.el-form--inline .el-form-item__label {
+    line-height: 53px;
+    margin-left: 20px;
+}
+/*宽度100的下拉框*/
+.batch .el-input {
+    width: 100px;
+    margin: 10px 0 10px 10px;
+    height: 30px!important;
+}
+.batch .el-input__inner {
+    height: 30px!important;
+}
+/*20170105优惠券*/
+.coupon_input input.el-input__inner {
+  width: 140px!important;
+}
+
+.coupon_input .el-form-item__label{
+  margin-left: 0px;
+}
+
+span.el-input__prefix {
+  left: 10px;
+}
+.el-popover--plain {
+  padding: 10px 12px;
+}
+
+.el-tooltip__popper.is-light {
+  border: 1px solid #d8dce5;
+  box-shadow: 0px 0px 3px 3px #f1f1f1;
+}
+/*解决选择器内容过长，ui异常*/
+.el-select .el-input__inner {
+    padding-right: 37px;
+}
+/*商品审核不通过hover显示*/
+.good_info .el-table td{
+    overflow:visible;
+}
+.fl{float:left;}
+.fr{float:right;}
+
+/*清除浮动*/
+.clearfix{overflow:auto;_height:1%}
+.el-date-range-picker__time-header .el-input,.el-date-picker__time-header .el-input {
+    width:  136px!important;
+}
+.headlineTime .el-date-editor {
+    margin:9px 10px 7px 0;
+}
+.headlineTime .halfwidth .el-input {
+    width: 224px;
+}
+.headlineTime .el-form-item {
+    margin-bottom: 5px;
+}
+.link .fullwidth .el-input {
+    width: 100%;
+}
+/*.jump .el-input {
+    width:182%!important;
+}
+.jump .el-select-dropdown__item {
+    width:400px!important;
+    width:100%!important;
+}*/
+/*自定义滚动条样式*/
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    width: 8px;
+    height: 8px;
+    background-color: #F5F5F5;
+    text-align: left;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 1px #F5F5F5;
+    border-radius: 5px;
+    background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 1px #F5F5F5;
+    background-color: #B7C9E1;
+}
+
+/*地图自定义图标样式*/
+    .map_cir{
+        position: absolute;
+        background-color: #0086FF!important;
+        border : 1px solid #0086FF !important;
+        height: 32px;
+        line-height: 32px;
+        padding:0 14px;
+        white-space: nowrap;
+        -moz-user-select: none;
+        font-size:14px;
+        cursor: pointer;
+        border-radius: 35px;
+        z-index: 99;
+    }
+    .map_cir .map_txt {
+        color:#fff;
+    }
+   .map_cir .map_arr {
+        position: absolute;
+        border-left:5px solid transparent;
+        border-right:10px solid transparent;
+        border-top : 10px solid #0086FF!important;
+        width:1px;
+        height:18px;
+        top:32px;
+        left:20px;
+    }
+/*帮助中心模态框样式*/
+   .helpCenter_delDialog .el-dialog__body{
+       padding:0 20px;
+   }
+
+   /*重置列表为空时显示的暂无数据位置*/
+   .el-table__empty-text {
+    left:5% !important;
+    }

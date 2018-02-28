@@ -1,0 +1,91 @@
+<template>
+  <div class="edit-form">
+      <el-dialog
+        :title="form.orgId?'编辑组织':'新增组织'"
+        custom-class='dialog'
+        :visible.sync="isShow"
+        :before-close="handleClose">
+            <el-col :span="24" >
+                <el-form ref="form" :model="form" :rules="formRules"  label-width="100px">
+                    <el-form-item label="组织"  >
+                         
+                    </el-form-item>
+                    <el-form-item label="自推提成" >
+                    </el-form-item>
+                    <el-form-item label="上级分成" prop="orgName">
+                        <template v-for="">
+
+                        </template>
+                        <el-input v-model="form.orgName" :maxlength="15"></el-input>
+                        <el-input v-model="form.orgName" :maxlength="15"></el-input>
+                        <el-input v-model="form.orgName" :maxlength="15"></el-input>
+                        <el-input v-model="form.orgName" :maxlength="15"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="handleClose">取 消</el-button>
+                <el-button type="primary" @click="save" >保 存</el-button>
+            </span>
+      </el-dialog>
+  </div>
+</template>
+<script>
+import rules from '../../../../utils/rules/'
+import EleOrg from './EleOrg.vue'
+import { mapState } from 'vuex'
+export default {
+  components:{ EleOrg },
+  data(){
+      return{
+          currentVal:0,
+          form:{
+              orgId:'', 
+              orgName: '', 
+              orgLevel:'0',
+              parentOrgId:'0'
+            },
+          formRules:{
+              parentOrgId:[
+                  { required: true,message:'请选择所属组织', trigger: 'blur' }
+              ],
+              orgLevel: [
+                { required: true,message:'请选择组织级别', trigger: 'blur' }
+              ],
+              orgName: [
+                {required: true, message:'请输入组织名', trigger: 'blur' }
+              ]
+          },
+          selected:[]
+      }
+  },
+  props:{
+      isShow:{
+          type:Boolean
+      },
+      selectVal:{
+          type:Array
+      }
+  },
+  computed:{
+     ...mapState(['prefix_18OR'])
+  },
+  methods:{
+    handleClose(){
+        this.$parent.isShow = false;
+        this.$refs.form.resetFields();
+    },
+    save(){
+        this.$refs.form.validate((valid) => {
+            if( valid ){
+            
+            }
+        })
+    }
+  },
+  watch:{
+
+  }
+}
+</script>
+

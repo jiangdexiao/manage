@@ -13,6 +13,13 @@
      //媒体行销
     MEDIA_SALE_MANAGE_PLATFORM: '1748a40e113343a3820d3083bae1822a',
     //商家管理
-    SELLER_MANAGE_PLATFORM: '88de735195dc442a90bcbd04adc6ed92'
+    SELLER_MANAGE_PLATFORM: '88de735195dc442a90bcbd04adc6ed92',
+    prefix_18BD:'18BD',
+    prefix_18OR:'18OR',
+    prefix_18RC:'18RC',
+    prefix_18DD:'18DD',
+    prefix_18MD:'18MD',
+    prefix_18AD:'18AD',
+    prefix_18FU:'18FU',
  }
  export default state

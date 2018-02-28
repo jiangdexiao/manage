@@ -2,8 +2,16 @@
  * 业务组件
  */
 
- import EleProvinceCity from './EleProvinceCity.vue'
+ import EleMediaCategory from './EleMediaCategory.vue'
+ import EleAreaProvinceCity from './EleAreaProvinceCity.vue'
+ import EleOrgProvinceCity from './EleOrgProvinceCity.vue'
+ import EleAreaProvinceCityAreas from './EleAreaProvinceCityAreas.vue'
+ import EleMap from './EleMap.vue'
 
  export{
-    EleProvinceCity
+    EleMediaCategory,
+    EleOrgProvinceCity,
+    EleAreaProvinceCity,
+    EleAreaProvinceCityAreas,
+    EleMap
  }

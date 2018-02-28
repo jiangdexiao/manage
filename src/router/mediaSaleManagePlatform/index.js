@@ -1,52 +1,59 @@
 /**
  * 媒体行销系统
  */
-import abstract from '@/views/mediaSaleManagePlatform/abstract/abstract.vue'
+const abstract = resolve => require(['@/views/mediaSaleManagePlatform/abstract/abstract.vue'], resolve);
 //提成管理
-import commission_calculation from '@/views/mediaSaleManagePlatform/commission_manage/commission_calculation/List.vue'
-import commission_my from '@/views/mediaSaleManagePlatform/commission_manage/commission_my/List.vue'
-import commission_staff from '@/views/mediaSaleManagePlatform/commission_manage/commission_staff/List.vue'
-
+const commission_calculation = resolve => require(['@/views/mediaSaleManagePlatform/commission_manage/commission_calculation/List.vue'], resolve);
+const commission_my = resolve => require(['@/views/mediaSaleManagePlatform/commission_manage/commission_my/List.vue'], resolve);
+const commission_staff = resolve => require(['@/views/mediaSaleManagePlatform/commission_manage/commission_staff/List.vue'], resolve);
 //客户管理
-import custom_assist from '@/views/mediaSaleManagePlatform/custom_manage/custom_assist/List.vue'
-import custom_followup from '@/views/mediaSaleManagePlatform/custom_manage/custom_followup/List.vue'
-import custom_progress from '@/views/mediaSaleManagePlatform/custom_manage/custom_progress/List.vue'
-import custom_record from '@/views/mediaSaleManagePlatform/custom_manage/custom_record/List.vue'
+const custom_assist = resolve => require(['@/views/mediaSaleManagePlatform/custom_manage/custom_assist/List.vue'], resolve);
+const custom_followup = resolve => require(['@/views/mediaSaleManagePlatform/custom_manage/custom_followup/List.vue'], resolve);
+const custom_progress = resolve => require(['@/views/mediaSaleManagePlatform/custom_manage/custom_progress/List.vue'], resolve);
+const custom_record = resolve => require(['@/views/mediaSaleManagePlatform/custom_manage/custom_record/List.vue'], resolve);
 //申诉
-import appeal_my from '@/views/mediaSaleManagePlatform/appeal_manage/appeal_my/List.vue'
+const appeal_my = resolve => require(['@/views/mediaSaleManagePlatform/appeal_manage/appeal_my/List.vue'], resolve);
 
 //媒体
-import media_advertising from '@/views/mediaSaleManagePlatform/media_manage/media_advertising/List.vue'
-import media_list from '@/views/mediaSaleManagePlatform/media_manage/media_list/List.vue'
+const media_advertising = resolve => require(['@/views/mediaSaleManagePlatform/media_manage/media_advertising/List.vue'], resolve);
+const media_list = resolve => require(['@/views/mediaSaleManagePlatform/media_manage/media_list/List.vue'], resolve);
+const media_devided = resolve => require(['@/views/mediaSaleManagePlatform/media_manage/media_devided/List.vue'], resolve);
 //bd
-import promotion_organization from '@/views/mediaSaleManagePlatform/promotion_manage/promotion_organization/List.vue'
-import promotion_list from '@/views/mediaSaleManagePlatform/promotion_manage/promotion_list/List.vue'
+const promotion_organization = resolve => require(['@/views/mediaSaleManagePlatform/promotion_manage/promotion_organization/List.vue'], resolve);
+const promotion_list = resolve => require(['@/views/mediaSaleManagePlatform/promotion_manage/promotion_list/List.vue'], resolve);
 //排行榜
-import ranking_area from '@/views/mediaSaleManagePlatform/rangking_manage/ranking_area/List.vue'
-import rangking_industry from '@/views/mediaSaleManagePlatform/rangking_manage/rangking_industry/List.vue'
-import rangking_all from '@/views/mediaSaleManagePlatform/rangking_manage/rangking_all/List.vue'
+const ranking_area = resolve => require(['@/views/mediaSaleManagePlatform/rangking_manage/ranking_area/List.vue'], resolve);
+const rangking_industry = resolve => require(['@/views/mediaSaleManagePlatform/rangking_manage/rangking_industry/List.vue'], resolve);
+const rangking_all = resolve => require(['@/views/mediaSaleManagePlatform/rangking_manage/rangking_all/List.vue'], resolve);
+//激活数据
+const report_salsemanActivatedReport = resolve => require(['@/views/mediaManagePlatform/report_manage/report_salsemanActivatedReport/List.vue'], resolve);
+const report_mediaActivatedReport = resolve => require(['@/views/mediaManagePlatform/report_manage/report_mediaActivatedReport/List.vue'], resolve);
 
 export default [
-    { path:'/abstract', name:'abstract', component:abstract},
+    { path: '/mediasale/abstract', name: 'mediasale_abstract', component: abstract },
     //提成管理
-    { path:'/commission_calculation', name:'commission_calculation', component:commission_calculation},
-    { path:'/commission_my',name:'commission_my',component:commission_my},
-    { path:'/commission_staff',name:'commission_staff',component:commission_staff},
+    { path: '/mediasale/mu/calculate', name: 'mediasale_commission_calculation', component: commission_calculation },
+    { path: '/mediasale/mu/commission', name: 'mediasale_commission_my', component: commission_my },
+    { path: '/mediasale/mu/staff', name: 'mediasale_commission_staff', component: commission_staff },
     //客户管理
-    { path:'/custom_assist',name:'custom_assist',component:custom_assist },
-    { path:'/custom_followup',name:'custom_followup',component:custom_followup},
-    { path:'/custom_progress',name:'custom_progress',component:custom_progress},
-    { path:'/custom_record',name:'custom_record', component:custom_record},
+    { path: '/mediasale/mu/assist', name: 'mediasale_custom_assist', component: custom_assist },
+    { path: '/mediasale/mu/followup', name: 'mediasale_custom_followup', component: custom_followup },
+    { path: '/mediasale/mu/progress', name: 'mediasale_custom_progress', component: custom_progress },
+    { path: '/mediasale/mu/record', name: 'mediasale_custom_record', component: custom_record },
     //申诉
-    { path:'/appeal_my',name:'appeal_my',component:appeal_my},
+    { path: '/mediasale/mu/appeal', name: 'mediasale_appeal_my', component: appeal_my },
     //媒体
-    { path:'/media_advertising', name:'media_advertising',component:media_advertising},
-    { path:'/media_list',name:'media_list', component:media_list },
+    { path: '/mediasale/mu/advertising', name: 'mediasale_media_advertising', component: media_advertising },
+    { path: '/mediasale/mu/medias', name: 'mediasale_media_list', component: media_list },
+    { path: '/mediasale/mu/advSchedule', name: 'media_devided', component: media_devided },//广告投放
     //bd
-    { path:'/promotion_organization',name:'promotion_organization',component:promotion_organization },
-    { path:'/promotion_list',name:'promotion_list', component:promotion_list},
+    { path: '/mediasale/mu/framework', name: 'mediasale_promotion_organization', component: promotion_organization },
+    { path: '/mediasale/mu/commissioner', name: 'mediasale_promotion_list', component: promotion_list },
     //排行榜
-    { path:'/ranking_area',name:'ranking_area',component:ranking_area },
-    { path:'/rangking_industry',name:'rangking_industry', component:rangking_industry},
-    { path:'/rangking_all',name:'rangking_all', component:rangking_all}
+    { path: '/mediasale/mu/area', name: 'mediasale_ranking_area', component: ranking_area },
+    { path: '/mediasale/mu/industry', name: 'mediasale_rangking_industry', component: rangking_industry },
+    { path: '/mediasale/mu/totallist', name: 'mediasale_rangking_all', component: rangking_all },
+    //激活数据
+    { path: '/mediasale/mu/salsemanActivatedReport', name: 'media_report_salsemanActivatedReport', component: report_salsemanActivatedReport},
+    { path: '/mediasale/mu/mediaActivatedReport', name: 'media_report_mediaActivatedReport', component: report_mediaActivatedReport},
 ]

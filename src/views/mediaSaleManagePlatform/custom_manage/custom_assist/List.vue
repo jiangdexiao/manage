@@ -1,5 +1,5 @@
 <template>
-  <div>协助管理</div>
+  <div>敬请期待</div>
 </template>
 <script>
 export default {

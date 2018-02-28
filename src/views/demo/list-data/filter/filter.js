@@ -68,7 +68,8 @@ export default {
                   return item.status === value
                 },
                 filter_multiple: false
-              }]
+              }],
+            ShowSummary:true
         }
       }
     },

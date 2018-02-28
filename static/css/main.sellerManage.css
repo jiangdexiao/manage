@@ -1,0 +1,394 @@
+/*base*/
+*{box-sizing:border-box;}
+h3,h4,h5,h6{font-weight:normal;}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.clear{
+	clear: both;
+	overflow: hidden;
+}
+.mr20{
+	margin-right: 20px;
+}
+.mb30{
+    margin-bottom: 30px;
+}
+.mt10 {
+    margin-top: 10px;
+  }
+a{color:#666;}
+a.a{color:#337ab7;}
+/* a.a:hover{color:#0086FF;} */
+label{font-weight: normal;}
+select {
+  width:100%;height:34px;border:solid 1px #d8dce5;font-size:14px;line-height:34px;border-radius:3px;margin-top:7px;color:#666;
+  padding-right: 20px;padding-left:10px;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background:#fff url('../../../../../static/images/sellerManage/ico_arrows.png') no-repeat scroll right center;
+}
+.hptczp {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0.5;
+}
+.hptczp{
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    opacity: 0.5;
+  }
+  .hptczp_content{
+    width: 400px;
+    height: 280px;
+    background: #fff;
+    z-index: 9999;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    margin-top: -180px;
+    background: #FFFFFF;
+    border-radius: 4px;}
+
+    .hptczp_content .hptczp_header{
+      width:100%;
+      height: 50px;
+      background: #DFE9F6;
+      padding-left: 20px;
+      padding-right: 20px;line-height:50px;
+      box-sizing:border-box;
+    }
+      .hptczp_header span.close{
+        display: inline-block;
+        height:50px;width:32px;cursor:pointer;
+        background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -294px -326px no-repeat;
+      }
+      .hptczp_content .hptczp_body{
+        padding-left: 20px;
+        padding-right: 20px;
+        background: #FFFFFF;
+        margin-top: 10px;
+      }
+        .hptczp_body textarea{
+            border: 1px solid #E5E5E5;
+            width: 360px;
+            height: 140px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    .hptczp_content .hptczp_footer{
+        height: 80px;
+        padding-top: 10px;
+        padding-left: 50%;
+    }
+
+      .hptczp_footer .btn {
+        width: 80px;
+        height: 30px;
+        border: none;
+        border-radius: 2px;
+        color: #fff;
+      }
+      .hptczp_footer .save {
+        margin-left: -110px;
+        background: #0086FF;
+      }
+      .hptczp_footer .cancel {
+        margin-left: 40px;
+        background: #FFF;
+        border: 1px solid #CCCCCC;
+        color: #444;
+      }
+/* 设置图片的初始样式 */
+.img_up{width: 100px; height:100px; display: inline-block; background: url('../../../../../static/images/sellerManage/img_add.png') no-repeat;}
+ul{list-style: none;}
+  div.icon{
+    width:16px;height:16px; display:inline-block; position:relative;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -50px no-repeat;
+  }
+  div.tips{display:none;width:100px;height:auto;background:#fff;
+    border:1px solid #E5E5E5;border-radius: 4px;
+    box-shadow: 0 1px 0 0 #E5E5E5;position: absolute;
+    top:18px;left:0px; text-indent: 0;padding:6px;font-weight:normal;
+    }
+    p{line-height:24px;font-size:12px; color:#666;}
+    i.changeGood{width:24px;height:14px;
+        background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -650px -716px no-repeat;
+        display:inline-block;margin-right:6px;}
+    i.red{
+        color: red;display:inline-block;padding-right:6px;font-size:12px;
+            font-style: normal;
+    }
+    i.redTip{
+        padding-left:10px;
+        padding-top:10px;
+    }
+  div.icon:hover div.tips{display:block;}
+  .ellipsis{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .ellipsis2{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  a.ellipsis2,a.ellipsis{
+    color:#5a5e66;
+  }
+  a.ellipsis2:hover,a.ellipsis:hover{ text-decoration:none;}
+/* 商家管理平台  精灵图 位置 */
+.bg-bg_logo {
+    width: 28px; height: 28px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -178px -340px no-repeat ;
+}
+.bg-favicon {
+    width: 32px; height: 32px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -190px -200px no-repeat ;
+}
+.bg-ico_aright {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -290px -716px no-repeat ;
+}
+.bg-ico_arrows {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -166px -836px no-repeat;
+}
+.bg-ico_arrows_default {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -630px no-repeat;
+}
+.bg-ico_arrows_packup {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -514px no-repeat;
+}
+.bg-ico_back {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -398px no-repeat;
+}
+.bg-ico_back02 {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -282px no-repeat;
+}
+/* 原类名：.bg-ico_calendar@2x */
+.bg-ico_calendar {   
+    width: 28px; height: 30px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -340px no-repeat;
+}
+.bg-ico_classify_default {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -726px -292px no-repeat;
+}
+.bg-ico_classify_packup {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -170px -716px no-repeat;
+}
+.bg-ico_classify_unfold {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -530px -716px no-repeat;
+}
+.bg-ico_close {
+    width: 24px; height: 24px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -174px -470px no-repeat;
+}
+.bg-ico_close_close {
+    width: 30px; height: 30px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -350px -181px no-repeat;
+}
+.bg-ico_close02 {
+    width: 24px; height: 24px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -294px -326px no-repeat;
+}
+.bg-ico_commodity {
+    width: 24px; height: 24px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -480px -50px no-repeat;
+}
+.bg-ico_commodity_selects {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -410px -716px no-repeat;
+}
+.bg-ico_compile {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -398px -836px no-repeat;
+}
+.bg-ico_compile_thick {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -166px no-repeat;
+}
+.bg-ico_data {
+    width: 24px; height: 24px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -480px -298px no-repeat;
+}
+.bg-ico_deal {
+    width: 24px; height: 24px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -470px no-repeat;
+}
+.bg-ico_default {
+    width: 14px; height: 14px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -952px no-repeat;
+}
+.bg-ico_del {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -166px no-repeat;
+}
+.bg-ico_details {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -746px -836px no-repeat;
+}
+.bg-ico_exit {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -538px -594px no-repeat;
+}
+.bg-ico_explain {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -630px -836px no-repeat;
+}
+.bg-ico_explain02 {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -50px no-repeat;
+}
+.bg-ico_home {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -836px no-repeat;
+}
+.bg-ico_huan {
+    width: 24px; height: 14px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -650px -716px no-repeat;
+}
+.bg-ico_latter {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -50px no-repeat;
+}
+.bg-ico_leftarrows_pressed {
+    width: 50px; height: 50px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -50px no-repeat;
+}
+.bg-ico_login_AuthCode {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -726px -412px no-repeat;
+}
+.bg-ico_login_logo {
+    width: 40px; height: 40px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -200px no-repeat;
+}
+.bg-ico_login_password {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -726px -532px no-repeat;
+}
+.bg-ico_login_phone {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -716px no-repeat;
+}
+.bg-ico_login_user {
+    width: 20px; height: 20px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -726px -172px no-repeat;
+}
+.bg-ico_login01 {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -172px -594px no-repeat;
+}
+.bg-ico_login02 {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -604px -294px no-repeat;
+}
+.bg-ico_msg {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -282px no-repeat;
+}
+.bg-ico_open {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -398px no-repeat;
+}
+.bg-ico_open02 {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -514px no-repeat;
+}
+.bg-ico_print {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -848px -630px no-repeat;
+}
+.bg-ico_radio_default {
+    width: 14px; height: 14px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -164px -952px no-repeat;
+}
+.bg-ico_radio_select {
+    width: 14px; height: 14px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -964px -746px no-repeat;
+}
+.bg-ico_reset {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -282px -836px no-repeat;
+}
+.bg-ico_rightarrows_pressed {
+    width: 50px; height: 50px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -200px -50px;
+}
+.bg-ico_search {
+    width: 16px; height: 16px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -514px -836px no-repeat;
+}
+.bg-ico_sell {
+    width: 30px; height: 31px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -350px -50px no-repeat;
+}
+.bg-nav_clearing {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -294px -594px no-repeat;
+}
+.bg-nav_commodity {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -50px -594px no-repeat;
+}
+.bg-nav_finance {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -604px -416px no-repeat;
+}
+.bg-nav_home {
+    width: 24px; height: 24px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -480px -174px no-repeat;
+}
+.bg-nav_marketing {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -420px -470px no-repeat;
+}
+.bg-nav_merchant {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -298px -470px no-repeat;
+}
+.bg-nav_order {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -726px -50px no-repeat;
+}
+.bg-nav_salesman {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -416px -594px no-repeat;
+}
+.bg-nav_sell {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -604px -172px no-repeat;
+}
+.bg-nav_set {
+    width: 22px; height: 22px;
+    background: url(' ../../../../../static/images/sellerManage/css_sprites.png') -604px -50px no-repeat;
+}

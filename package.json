@@ -15,16 +15,19 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "base-64": "^0.1.0",
+    "clipboard": "^1.7.1",
     "echarts": "^3.8.5",
     "element-ui": "^2.0.5",
+    "jquery": "^3.2.1",
+    "jsonwebtoken": "^8.1.0",
     "md5": "^2.2.1",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
     "underscore": "^1.8.3",
+    "utf8": "^3.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "wangeditor": "^3.0.15"
+    "vuedraggable": "^2.15.0",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

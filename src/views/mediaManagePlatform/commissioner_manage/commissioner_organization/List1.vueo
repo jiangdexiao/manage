@@ -1,0 +1,299 @@
+<template>
+  <div>
+    <!-- 新增/修改/按钮 -->
+      <el-row >
+        <el-col :span="24" class="toolbar btnbar">
+          <el-button type="primary" size="medium" @click="save">新增</el-button>
+          <el-button type="primary" size="medium" @click="edit">修改</el-button>
+          <el-button type="danger" size="medium" @click="del">删除</el-button>
+      </el-col>
+      </el-row>
+      <el-row :gutter="20">
+          <!-- 国家 -->
+        <el-col :span="4">
+          <el-card class="box-card" :body-style="{ padding: '0px',margin:'0px' }">
+              <div slot="header" class="clearfix">
+                <span>国家</span>
+              </div>
+              <div v-for="(o,i) in countries" :key="i" :class="`text item ${!o.sky?'':o.sky} ${!o.red?'':o.red}`" :orgname="o.orgName" :orgid="o.orgId"  @click="select(0,o,$event.target)" >
+                {{o.orgName }}
+              </div>
+          </el-card>
+        </el-col>
+        <!-- 大区 -->
+        <el-col :span="4">
+          <el-card class="box-card" :body-style="{ padding: '0px',margin:'0px' }">
+              <div slot="header" class="clearfix">
+                <span>大区</span>
+              </div>
+              <div v-for="(o,i) in province" :key="i" :class="`text item ${!o.sky?'':o.sky} ${!o.red?'':o.red}`" :orgname="o.orgName" :orgid="o.orgId" @click="select(1,o,$event.target)">
+                {{o.orgName }}
+              </div>
+          </el-card>
+        </el-col>
+        <!-- 城市 -->
+        <el-col :span="4">
+          <el-card class="box-card" :body-style="{ padding: '0px',margin:'0px' }">
+              <div slot="header" class="clearfix">
+                <span>城市</span>
+              </div>
+              <div v-for="(o,i) in cities" :key="i" :class="`text item ${!o.sky?'':o.sky} ${!o.red?'':o.red}`" :orgname="o.orgName" :orgid="o.orgId" @click="select(2,o,$event.target)">
+                {{o.orgName }}
+              </div>
+          </el-card>
+        </el-col>
+        <!-- 区域 -->
+        <el-col :span="4">
+          <el-card class="box-card" :body-style="{ padding: '0px',margin:'0px' }">
+              <div slot="header" class="clearfix">
+                <span>区域</span>
+              </div>
+              <div v-for="(o,i) in areas" :key="i" :class="`text item ${!o.sky?'':o.sky} ${!o.red?'':o.red}`" :orgname="o.orgName" :orgid="o.orgId" @click="select(3,o,$event.target)">
+                {{o.orgName }}
+              </div>
+          </el-card>
+        </el-col>
+        <!-- BDM -->
+        <el-col :span="4">
+          <el-card class="box-card" :body-style="{ padding: '0px',margin:'0px' }" >
+              <div slot="header" class="clearfix">
+                <span>BDM</span>
+              </div>
+              <div v-for="(o,i) in bdms" :key="i" :class="`text item ${!o.sky?'':o.sky} ${!o.red?'':o.red}`" :orgname="o.orgName" :orgid="o.orgId" @click="select(4,o,$event.target)">
+                {{o.orgName }}
+              </div>
+          </el-card>
+        </el-col>
+      </el-row>
+      <Edit :isShow="isShow" :selectVal="selectIds" @saveSuccess="SaveSuccess" ></Edit>
+  </div>
+</template>
+
+<script>
+  import Edit from './Edit.vue'
+  export default{
+    components:{Edit},
+    data(){
+      return{
+        countries:[],
+        province:[],
+        cities:[],
+        areas:[],
+        bdms:[],
+        selectIds:[],
+        isShow:false
+      }
+    },
+    methods:{
+      SaveSuccess(){
+        this.init(0,0)
+      },
+      save(){
+        this.isShow = true
+      },
+      edit(){
+        let selectItems = $('.red')
+        if( !selectItems || selectItems.length == 0){
+          this.$message({type:'error',message:'请选择一项'})
+          return
+        }else{
+          let skys = $('.skyblue') //上级
+          this.selectIds = []
+          //取得上级
+          _.each(skys,(item,index)=>{
+            this.selectIds.push($(item).attr('orgid'))
+          })
+          //取得当前级
+          _.each(selectItems,(item,index)=>{
+            this.selectIds.push($(item).attr('orgid'))
+          })
+          this.isShow = true
+        }
+      },
+      del(){
+        let selectItems = $('.red')
+        if( !selectItems || selectItems.length == 0){
+          this.$message({type:'error',message:'请选择一项'})
+          return
+        }else{
+          let skys = $('.skyblue') //上级
+          this.selectIds = []
+          let selectNames = ''
+          //取得上级
+          _.each(skys,(item,index)=>{
+            selectNames += $(item).attr('orgname') +'>'
+            this.selectIds.push($(item).attr('orgid'))
+          })
+          //取得当前级
+          _.each(selectItems,(item,index)=>{
+            selectNames += $(item).attr('orgname') +'>'
+            this.selectIds.push($(item).attr('orgid'))
+          })
+          selectNames = selectNames.substring(0,selectNames.length-1)
+          this.$confirm(`${selectNames}`, '您确认删除以下数据吗？', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.api_common_bdorg({pathParams:`/${this.selectIds[this.selectIds.length-1]}`,type:'delete'}).then(res=>{
+              this.init(0,0)
+            })
+          }).catch(() => {
+            
+          })
+        }
+      },
+      // setStyle(arr,obj){
+      //   _.each(arr,(item,index)=>{
+      //       item.sky = ''
+      //       if(item.orgId === obj.orgId){
+      //         item.red = 'red'
+      //       }else{
+      //         item.red = ''
+      //       }
+      //     })
+      // },
+      setStyle(index,target){
+        //当前项后面的项
+        for(let i=index;i<5;i++){
+          let items = $(".item",$(".box-card").eq(i))
+          items.removeClass('skyblue').removeClass('red')
+        }
+        //当前项前面的项
+        for(let i=index-1;i>= 0 && i<index;i--){
+          $(".red",$(".box-card").eq(i)).removeClass('red').addClass('skyblue')
+        }
+         $(target).addClass('red')
+      },
+      select(orgLevel,obj,target){
+        // $(target).siblings().removeClass('skyblue').removeClass('red')
+        // $(target).removeClass('skyblue').addClass('red')
+        //对象方式最后一项点击样式没反应
+        if(orgLevel === 0){
+          // this.setStyle(this.countries,obj)
+          this.setStyle(orgLevel,target)
+        }else if( orgLevel === 1){
+          // this.setStyle(this.province,obj)
+          this.setStyle(orgLevel,target)
+        }else if( orgLevel === 2){
+          // this.setStyle(this.cities,obj)
+          this.setStyle(orgLevel,target)
+        }else if( orgLevel === 3){
+          // this.setStyle(this.areas,obj)
+          this.setStyle(orgLevel,target)
+        }else if( orgLevel === 4){
+          // this.setStyle(this.bdms,obj)
+          this.setStyle(orgLevel,target)
+          return
+        }
+        // if( orgLevel > 3 ) return
+        this.api_common_bdorg({data:{orgLevel: orgLevel+1,parentOrgId:obj.orgId}}).then(res=>{
+          switch(orgLevel){
+            case 0:
+              this.province=[],this.cities =[],this.areas =[],this.bdms =[]
+              if( res.content.length >0){
+                this.province = res.content
+              }
+            break;
+            case 1:
+              this.cities =[],this.areas =[],this.bdms =[]
+              if( res.content.length >0){
+                  this.cities = res.content
+                }
+            break;
+            case 2:
+              this.areas=[],this.bdms =[]
+              if( res.content.length >0){
+                this.areas = res.content
+              }
+            break;
+            case 3:
+              this.bdms=[]
+              if( res.content.length >0){
+                this.bdms = res.content
+              }
+            break;
+            case 4:
+            break;
+          }
+        })
+      },
+
+      init(orgLevel = 0,parentOrdId = 0){
+        if( orgLevel <5 ){
+          this.api_common_bdorg({data:{orgLevel: orgLevel,parentOrgId:parentOrdId}}).then(res=>{
+            parentOrdId = 0 // 重置为0
+            switch(orgLevel){
+              case 0:
+                this.countries=[],this.province =[], this.cities =[],this.areas =[],this.bdms =[]
+                if( res.content.length >0){
+                  this.countries = res.content
+                  parentOrdId = this.countries[0].orgId
+                  // this.countries[0].sky = 'skyblue'
+                  this.$set(this.countries[0],'sky','skyblue')
+                }
+              break;
+              case 1:
+                this.province=[],this.cities =[],this.areas =[],this.bdms =[]
+                if( res.content.length >0){
+                  this.province = res.content
+                  parentOrdId =this.province[0].orgId
+                  // this.province[0].sky = 'skyblue'
+                  this.$set(this.province[0],'sky','skyblue')
+                }
+              break;
+              case 2:
+                this.cities=[],this.areas =[],this.bdms =[]
+                if( res.content.length >0){
+                  this.cities = res.content
+                  parentOrdId =this.cities[0].orgId
+                  // this.cities[0].sky = 'skyblue'
+                  this.$set(this.cities[0],'sky','skyblue')
+                }
+              break;
+              case 3:
+                this.areas=[],this.bdms =[]
+                if( res.content.length >0){
+                  this.areas = res.content
+                  parentOrdId =this.areas[0].orgId
+                  // this.areas[0].sky = 'skyblue'
+                  this.$set(this.areas[0],'sky','skyblue')
+                }
+              break;
+              case 4:
+                this.bdms=[]
+                if( res.content.length >0){
+                  this.bdms = res.content
+                  parentOrdId =this.bdms[0].orgId
+                  // this.bdms[0].sky = 'skyblue'
+                  this.$set(this.bdms[0],'sky','skyblue')
+                }
+              break;
+            } 
+            orgLevel++
+            if( parentOrdId != 0)
+              this.init(orgLevel,parentOrdId,0)
+          })
+        }
+      }
+    },
+    mounted(){ 
+      this.init(0,0)
+      this.$nextTick(()=>{
+       
+      })
+    }
+  }
+</script>
+<style scoped>
+  .item{
+    cursor: pointer;
+    padding:5px;
+  }
+  .skyblue{
+    background-color:skyblue;
+  }
+  .red{
+    background-color:#ff6969;
+  }
+</style>

@@ -1,0 +1,177 @@
+<template>
+  <div class="edit-form">
+      <el-dialog
+        :title="form.orgId?'编辑组织':'新增组织'"
+        custom-class='dialog'
+        :visible.sync="isShow"
+        :before-close="handleClose">
+            <el-col :span="24" >
+                <el-form ref="form" :model="form" :rules="formRules"  label-width="100px">
+                    <el-form-item label="组织级别" prop="orgLevel" :disabled="form.orgId?true:false" >
+                         <el-select  v-model="form.orgLevel" @change="changeLevel">
+                            <el-option value="0" label="国家"></el-option>
+                            <el-option value="1" label="大区"></el-option>
+                            <el-option value="2" label="城市"></el-option>
+                            <el-option value="3" label="区域"></el-option>
+                            <el-option value="4" label="BDM"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="所属组织" prop="parentOrgId" v-show=" currentVal > 0" >
+                        <EleOrg :Level="parseInt(currentVal)" :SelectVal="selected" v-on:selected="Org_CallBack" ></EleOrg>
+                    </el-form-item>
+                    <el-form-item label="组织名" prop="orgName">
+                        <el-input v-model="form.orgName" :maxlength="15"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="handleClose">取 消</el-button>
+                <el-button type="primary" @click="save" >保 存</el-button>
+            </span>
+      </el-dialog>
+  </div>
+</template>
+<script>
+import rules from '../../../../utils/rules/'
+import EleOrg from './EleOrg.vue'
+import { mapState } from 'vuex'
+export default {
+  components:{ EleOrg },
+  data(){
+      return{
+          currentVal:0,
+          form:{
+              orgId:'', 
+              orgName: '', 
+              orgLevel:'0',
+              parentOrgId:'0'
+            },
+          formRules:{
+              parentOrgId:[
+                  { required: true,message:'请选择所属组织', trigger: 'blur' }
+              ],
+              orgLevel: [
+                { required: true,message:'请选择组织级别', trigger: 'blur' }
+              ],
+              orgName: [
+                {required: true, message:'请输入组织名', trigger: 'blur' }
+              ]
+          },
+          selected:[]
+      }
+  },
+  props:{
+      isShow:{
+          type:Boolean
+      },
+      selectVal:{
+          type:Array
+      }
+  },
+  computed:{
+     ...mapState(['prefix_18OR'])
+  },
+  methods:{
+    Org_CallBack(val){
+        if( val && val.length>0){
+            this.form.parentOrgId = val[val.length-1].split('-')[0]
+        }else{
+            this.form.parentOrgId = val
+        }
+    },
+    changeLevel(val){
+        this.currentVal = val
+        if( val === '0'){
+            this.form.parentOrgId = '0'
+        }else{
+            this.form.parentOrgId = ''
+        }
+        
+    },
+    handleClose(){
+        this.$parent.isShow = false;
+        this.form.orgId = ''
+        this.$refs.form.resetFields();
+    },
+    save(){
+        this.$refs.form.validate((valid) => {
+            if( valid ){
+                if(this.form.orgLevel === 0 ){
+                    this.form.parentOrgId = 0
+                }else if( this.form.orgLevel === 1){
+                    if( this.form.parentOrgId && this.form.parentOrgId.length != 1){
+                        this.$message({type:'error',message:'请选择所属组织'})
+                        return
+                    }
+                }else if( this.form.orgLevel === 2){
+                    if( this.form.parentOrgId && this.form.parentOrgId.length != 2){
+                        this.$message({type:'error',message:'请选择所属组织'})
+                        return
+                    }
+                }else if( this.form.orgLevel === 3){
+                    if( this.form.parentOrgId && this.form.parentOrgId.length != 3){
+                        this.$message({type:'error',message:'请选择所属组织'})
+                        return
+                    }
+                }else if( this.form.orgLevel === 4){
+                    if( this.form.parentOrgId && this.form.parentOrgId.length != 4){
+                        this.$message({type:'error',message:'请选择所属组织'})
+                        return
+                    }
+                }
+                if( !this.form.orgId ){
+                    //新增
+                    this.api_common_mediaId({data:{prefix:this.prefix_18OR}}).then(res=>{
+                        //获取新增时候的组织id
+                        this.form.orgId = res.content
+                        this.api_common_bdorg({data:this.form,type:'post'}).then(result=>{
+                            console.log('add')
+                            this.handleClose()
+                            this.$emit('saveSuccess')
+                        })
+                    })
+                }
+                else{
+                    //编辑
+                    this.api_common_bdorg({data:this.form,type:'post'}).then(result=>{
+                        console.log('update')
+                        this.handleClose()
+                        this.$emit('saveSuccess')
+                    })
+                }
+
+            }else{
+                console.log('valid faild')
+            }
+        })
+    }
+  },
+  watch:{
+      isShow(v){
+          this.currentVal = 0
+          if( this.currentVal === 0){
+            this.form.parentOrgId = '0'
+          }else{
+            this.form.parentOrgId = ''
+          }
+      },
+      selectVal(v){
+          this.selected=[]
+          this.currentVal = 0
+          if(v && v!=""){
+              this.selected = v
+              this.form.orgId = v[v.length-1]
+              this.currentVal = v.length-1
+            //   console.log('v: '+v +' orgId: '+this.form.orgId+' this.currentVal: '+this.currentVal)
+          }
+          this.form.orgLevel = this.currentVal.toString()
+          if( this.currentVal === 0){
+            this.form.parentOrgId = '0'
+          }else{
+            this.form.parentOrgId = ''
+          }
+      }
+  }
+}
+</script>
+

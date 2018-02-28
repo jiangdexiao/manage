@@ -1,26 +1,31 @@
 import * as types from '../../types'
 
 const state = {
-  menus: []
+  menus:null
+}
+
+const getters = {
+  getMenus:state=>state.menus
 }
 
 const mutations = {
   [types.GET_MENU](state, menus) {
-    console.log(`mutations:${types.GET_MENU+JSON.stringify(menus)}`)
-    state.menus = localStorage.getItem('menus')
+    let menu = sessionStorage.getItem('menus')
+    state.menus = menu?JSON.parse(menu):{}
   }
 }
 
 
 const actions = {
-  getMenuAction: (context, res) => {
-    console.log('getMenuAction')
-    context.commit(types.GET_MENU, res)
+  setMenu: (context, menus) => {
+    
+    context.commit(types.GET_MENU, menus)
   }
 }
 
 export default {
   state,
+  getters,
   mutations,
   actions
 }

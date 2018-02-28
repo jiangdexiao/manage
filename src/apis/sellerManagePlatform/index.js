@@ -1,3 +1,2 @@
-/**
- * 商家管理系统api
- */
+import config from './config'
+export default config

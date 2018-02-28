@@ -16,9 +16,9 @@
             </div> -->
         </el-col>
         <el-col :span="24" class="toolbar btnbar" v-if="toolbar && toolbar.length > 0">
-            <el-button 
-                v-for="(btn,index) in toolbar"
-                :key="index"
+          <el-button 
+                v-for="(btn,index) in toolbar" :key="index"
+                v-if=" ( btn.condition && typeof btn.condition == 'function' && btn.condition({btnInfo:btn,batch:batch}) || !btn.condition || (btn.condition && typeof btn.condition !='function') )"
                 :type="btn.type || 'primary'"
                 size="medium"
                 :icon="btn.icon || 'add'"

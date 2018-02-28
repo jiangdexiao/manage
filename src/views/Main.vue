@@ -29,128 +29,204 @@
           <span class="icon icon_6"></span>
           <span class="message">BI系统</span>
         </a>
-        <a></a>
-        <a></a>
+        <a >
+        </a>
+        <a >
+        </a>
       </div>
     </div>
 </template>
 
 <script>
+//c端工具菜单
+import custom_menus from '../json/custom_menus.js'
+import bi_menus from '../json/bi_menus.js'
 import { mapState ,mapGetters, mapActions} from 'vuex'
+//模拟菜单
+import md5 from 'md5'
 export default {
   name: '',
   data () {
     return {
-      user:''
+      user:'',
+      moduleIds:[]
     }
   },
   computed:{
       ...mapGetters(['getUser']),
-      ...mapState(['TOOL_MANAGE_PLATFORM','BI_MANAGE_PLATFORM','BUSINESS_MANAGE_PLATFORM','MEDIA_MANAGE_PLATFORM','MEDIA_SALE_MANAGE_PLATFORM','SELLER_MANAGE_PLATFORM']),
-      moduleIds(){
-        return this.getUser?this.getUser.moduleId:[]
-      }
+      ...mapState(['TOOL_MANAGE_PLATFORM','BI_MANAGE_PLATFORM','BUSINESS_MANAGE_PLATFORM','MEDIA_MANAGE_PLATFORM','MEDIA_SALE_MANAGE_PLATFORM','SELLER_MANAGE_PLATFORM'])
   },
   methods: {
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser','setMenu']),
     goto (moduleId) {
+        let m = this.moduleIds.find(p=>p === moduleId)
+        if(!m)return
         switch(moduleId){
             case this.TOOL_MANAGE_PLATFORM:
-                // if (window.href.includes('localhost') || href.includes('m2c2017dev')){
-                //     this.BASE_URL = `http://bi.m2c2017dev.com/`
-                // }
+                sessionStorage.setItem('title','工具管理平台')
+                sessionStorage.setItem('moduleId',moduleId)
+                this.$router.push({path:'/customhome' })
             break;
             case this.BI_MANAGE_PLATFORM:
-            
+              sessionStorage.setItem('title','BI平台')
+              sessionStorage.setItem('moduleId',moduleId)
+              this.$router.push({path:'/bihome'})
             break;
-            case this.BUSINESS_MANAGE_PLATFORM:break;
-            case this.MEDIA_MANAGE_PLATFORM:break;
-            case this.MEDIA_SALE_MANAGE_PLATFORM:break;
-            case this.SELLER_MANAGE_PLATFORM:break;
+            case this.BUSINESS_MANAGE_PLATFORM:
+              sessionStorage.setItem('title','运营管理平台')
+              sessionStorage.setItem('moduleId',moduleId)
+              this.$router.push({path:'/m'})
+            break;
+            case this.MEDIA_MANAGE_PLATFORM:
+              sessionStorage.setItem('title','媒体管理平台')
+              sessionStorage.setItem('moduleId',moduleId)
+              this.$router.push({path:'/mu'})
+            break;
+            case this.MEDIA_SALE_MANAGE_PLATFORM:
+              if( this.getUser.roleId === 1) return
+              //调用获取bd登录接口获取bd详细信息
+              this.api_user_bdLogin({ data:{userId:this.getUser.userId} }).then(res=>{
+                this.getUser.bd = res.content
+                sessionStorage.setItem('userInfo',JSON.stringify(this.getUser))
+                this.setUser()
+                sessionStorage.setItem('title','媒体行销平台')
+                sessionStorage.setItem('moduleId',moduleId)
+                this.$router.push({path:'/mediasalehome'})
+              })
+            break;
+            case this.SELLER_MANAGE_PLATFORM:
+              sessionStorage.setItem('title','商家管理平台')
+              sessionStorage.setItem('moduleId',moduleId)
+              this.$router.push({path:'/s'})
+            break;
         }
-        this.$router.push({name:'home', query: { moduleId: moduleId } })
-    //   console.log('点击的moduleId',this.moduleIds.includes('32df5b285d6c480e9b17219461e147cb'))
-    //   console.log('拿到的权限数组',this.moduleIds)
-    //   let that = this
-    //   let href = window.location.href
-    //   let base = ''
-    //   let bibase = ''
-    //   if (href.includes('localhost') || href.includes('m2c2017dev')) { // 本地环境和开发环境
-    //     base = 'http://master.m2c2017dev.com:80/'
-    //     bibase = 'http://bi.m2c2017dev.com/#/home'
-    //   } else if (href.includes('m2c2017local')){
-    //     base = 'http://master.m2c2017local.com:80/'  // local环境
-    //     bibase = 'http://bi.m2c2017local.com/#/home'
-    //   } else if (href.includes('m2c2017test')){
-    //     base = 'http://master.m2c2017test.com:80/'   // test 环境
-    //     bibase = 'http://bi.m2c2017test.com/#/home'
-    //   } else if (href.includes('m2c2017final')){
-    //     base = 'http://master.m2c2017final.com:80/'   // 演示环境
-    //     bibase = 'http://bi.m2c2017final.com/#/home'
-    //   } else {
-    //     base = 'http://master.m2c2017.com:80/'     // 正式环境
-    //     bibase = 'http://bi.m2c2017.com/#/home'
-    //   }
-    //   if (that.moduleIds.length > 0) {
-    //     that.moduleIds.some(item=>{
-    //       // if(moduleId == item.moduleId) { //判断是否有权限
-    //       if(moduleId == item) { //判断是否有权限
-    //         sessionStorage.setItem('moduleId',moduleId)
-    //         if (moduleId == '32df5b285d6c480e9b17219461e147cb') { // 后台运营管理
-    //           location.href= location.href.replace(/phgl/, 'm/mhome')
-    //           return 
-    //         } else if (moduleId == '4d1a1c4eee254a518d468e99fd8e26c1') { // 媒体管理平台
-    //           location.href= base + 'm-admin/#/mu'
-    //           return 
-    //         } else if (moduleId == '1748a40e113343a3820d3083bae1822a' &&  that.users.roleId != 1) { // 媒体行销平台
-    //           location.href= base + 'marketing/#/mu'
-    //           return 
-    //         } else if (moduleId == '88de735195dc442a90bcbd04adc6ed92') { // 商家管理平台
-    //           location.href= base + 'merchant/?#/s/dealer'
-    //           return 
-    //         } else if (moduleId == 'e36b1d6fe08e40169a78aa9fee91d2e6') { // 工具管理平台
-    //           location.href= base + 'm/mhome'
-    //           return 
-    //         } else if (moduleId == 'c940c5c062df40868e633d77e677c4af') { // BI系统
-    //           location.href= bibase
-    //           return 
-    //         }
-    //         // console.log(location.href)
-    //       }
-    //     })
-    //   }
+        //获取菜单
+        this.api_common_menu({
+          data:{
+              userId: this.getUser.userId,
+              accessToken: this.getUser.token,
+              moduleId: moduleId
+          }
+        }).then(res => {
+            sessionStorage.setItem('perms', JSON.stringify(res.content.perms))
+            if( moduleId === this.BUSINESS_MANAGE_PLATFORM){
+              res.content.menus.unshift({name:'HOME',url:'/m/abstract',icon:'iconfont icon-guanlizhongxin',home:true})
+            }
+            else if(moduleId === this.MEDIA_SALE_MANAGE_PLATFORM){
+              
+              res.content.menus.map(item=>{
+                this.iconReplace(item,moduleId )
+                _.each(item.menus,(menu,index)=>{
+                  menu.url = `/mediasale${menu.url}`
+                })
+              })
+              res.content.menus.unshift({name:'HOME',url:'/mediasale/abstract',icon:'iconfont icon-guanlizhongxin',home:true})
+            }else if( moduleId === this.MEDIA_MANAGE_PLATFORM){
+              res.content.menus.map(item=>{
+                this.iconReplace(item,moduleId)
+              })
+              res.content.menus.unshift({name:'HOME',url:'/mu/abstract',icon:'iconfont icon-guanlizhongxin',home:true})
+            }else if( moduleId === this.BI_MANAGE_PLATFORM){
+              // res.content.menus.unshift({name:'HOME',url:'/bi/abstract',icon:'iconfont icon-guanlizhongxin',home:true})
+              res.content.menus = bi_menus
+            }else if( moduleId === this.SELLER_MANAGE_PLATFORM){
+              res.content.menus.map(item=>{
+                this.iconReplace(item,moduleId)
+              })
+              res.content.menus.unshift({name:'HOME',url:'/s/abstract',icon:'iconfont icon-guanlizhongxin',home:true})
+              sessionStorage.setItem('perms',res.content.perms)
+            }else if( moduleId === this.TOOL_MANAGE_PLATFORM){
+              res.content.menus.unshift({name:'HOME',url:'/custom/abstract',icon:'iconfont icon-guanlizhongxin',home:true})
+              // res.content.menus = custom_menus
+            }
+            sessionStorage.setItem('menus',JSON.stringify(res.content))
+            this.setMenu()
+        }).catch(err=>{})
+    },
+    //为兼容旧平台数据这里拦截处理ico
+    iconReplace(item , moduleId){
+      switch( moduleId ){
+        case this.MEDIA_MANAGE_PLATFORM:
+          if( item.icon == 'nav_order'){
+            item.icon = 'iconfont icon-nav_bd'
+          }else if( item.icon == 'nav_change'){
+            item.icon = 'iconfont icon-nav_client'
+          }else if( item.icon == 'nav_media'){
+            item.icon = 'iconfont icon-nav_media'
+          }else if( item.icon == 'nav_promoter'){
+            item.icon = 'iconfont icon-nav_promoter'
+          }else if( item.icon == 'nav_finance'){
+            item.icon = 'iconfont icon-caiwu'
+          }else if( item.icon == 'nav_dataReport'){
+            item.icon = 'iconfont icon-shuju'
+          }
+        break;
+        case this.MEDIA_SALE_MANAGE_PLATFORM:
+          if( item.icon == 'nav_order'){
+            item.icon = 'iconfont icon-nav_bd'
+          }else if( item.icon == 'nav_change'){
+            item.icon = 'iconfont icon-nav_client'
+          }else if( item.icon == 'nav_media'){
+            item.icon = 'iconfont icon-nav_media'
+          }else if( item.icon == 'nav_unit'){
+            item.icon = 'iconfont icon-nav_unit'
+          }else if( item.icon == 'nav_ranking'){
+            item.icon = 'iconfont icon-paihangbang'
+          }else if( item.icon == 'nav_asset_m'){
+            item.icon = 'iconfont icon-shenshuguanli'
+          }
+        break;
+        case this.BUSINESS_MANAGE_PLATFORM:
+          if( item.icon == 'iconfont icon-setting'){
+            // item.icon = 'iconfont icon-setting'
+          }else if( item.icon == 'iconfont icon-xitongshezhi'){
+            // item.icon = 'iconfont icon-xitongshezhi1'
+          }else if( item.icon == 'iconfont icon-yunying'){
+            // item.icon = 'iconfont icon-yunying'
+          }else if( item.icon == 'iconfont icon-renyuantiaodong'){
+            // item.icon = 'iconfont icon-renyuantiaodong'
+          }else if( item.icon == 'iconfont icon-yingxiao'){
+            // item.icon = 'iconfont icon-yingxiao1'
+          }else if( item.icon == 'iconfont icon-neirong'){
+            // item.icon = 'iconfont icon-neirong'
+          }else if( item.icon == 'iconfont icon-shop-cservice'){
+            // item.icon = 'iconfont icon-shop-cservice'
+          }else if( item.icon == 'iconfont icon-jisuanqi'){
+            // item.icon = 'iconfont icon-jiesuan'
+          }else if( item.icon == 'iconfont icon-caiwu'){
+            // item.icon = 'iconfont icon-caiwu'
+          }
+        break;
+        case this.SELLER_MANAGE_PLATFORM:
+          if( item.icon == 'nav_dealer'){
+            item.icon = 'iconfont icon-shangjia'
+          }else if( item.icon == 'nav_salesman'){
+            item.icon = 'iconfont icon-user'
+          }else if( item.icon == 'nav_order'){
+            item.icon = 'iconfont icon-dingdan'
+          }else if( item.icon == 'nav_change'){
+            item.icon = 'iconfont icon-shangpin'
+          }else if( item.icon == 'nav_asset_m'){
+            item.icon = 'iconfont icon-zijin'
+          }else if( item.icon == 'nav_count'){
+            item.icon = 'iconfont icon-jiesuan'
+          }else if( item.icon == 'nav_sale'){
+            item.icon = 'iconfont icon-yingxiao'
+          }else if( item.icon == 'nav_data'){
+            item.icon = 'iconfont icon-shuju'
+          }else if(item.icon == 'nav_setting'){
+            item.icon = 'iconfont icon-shezhi'
+          }
+        break;
+      }
     },
      // 获取模块权限
     get_module_limits () {
-    //   let that = this
-    //   sessionStorage.setItem('access_token', that.getCookie('access_token'))
-    //   if (that.md5(that.getCookie('access_token')) != that.getCookie('auth')) {
-    //     that.$.removeCookie('access_token')
-    //     that.$.removeCookie('auth')
-    //     that.$goRoute({path: '/mlogin'})
-    //     that.show_tip('登录失效，请重新登录')
-    //     return
-    //   } else {
-    //     sessionStorage.setItem('userInfo', JSON.stringify(that.userInfo(that.getCookie('access_token'))))
-    //   }
-    //   console.log(JSON.parse(sessionStorage.getItem('userInfo')))
-    //   that.$.ajax({
-    //       method: 'get',
-    //       url: that.localbase+ 'm2c.operate/permission/auth/modules',
-    //       data: {
-    //             userId: JSON.parse(sessionStorage.getItem('userInfo')).userId,
-    //             accessToken:sessionStorage.getItem('access_token')
-    //           },
-    //       success: function (result) {
-    //         result.content.forEach(item=> {
-    //           that.moduleIds.push(item.moduleId)
-    //         })
-    //         console.log('点击的moduleId',that.moduleIds.includes('32df5b285d6c480e9b17219461e147cb'))
-    //       },
-    //       error: function () {
-    //         that.hide_loading()
-    //       }
-    //   })
+      this.api_user_modules({data:{userId:this.getUser.userId,accessToken:this.getUser.token}}).then(result=>{
+        this.moduleIds = result.content.map(item=>{
+          return item.moduleId
+        })
+      })
     },
     // 登出
     sign_out () {
@@ -160,47 +236,43 @@ export default {
           type: 'warning'
         }).then(() => {
             this.api_user_loginout({data:{ token:this.getUser.token } }).then(res=>{
-              sessionStorage.removeItem('userInfo')
+              sessionStorage.clear()
               this.tool.cookie.delCookie('access_token')
               this.tool.cookie.delCookie('auth')
-              this.setUser()
-              this.$router.push('/login')
+              this.$router.push('login')
             })
         }).catch(() => {
       
         });
     }
   },
-  beforeCreate(){
-      console.log('beforeCreated')
-  },
   created () {
-    this.get_module_limits()
-  },
-  mounted () {
     //如果对象为空重新commit 避免强制刷新状态丢失
     if( !this.getUser ){
         this.setUser()
     }
-    //   console.log('userinfo'+ JSON.stringify(this.getUser))
-    // let that = this
-    // that.users = JSON.parse(sessionStorage.getItem('userInfo'))
-    // console.log('用户信息',   that.users)
-    // if (that.md5(that.$.cookie('access_token')) != that.$.cookie('auth')) {
-    //   that.$goRoute({path: '/mlogin'})
-    //   that.show_tip('登录失效，请重新登录')
-    //   return
-    // }
-    // if (!sessionStorage.getItem('access_token')) {
-    //   that.$goRoute({path: '/phgl'})
-    //   return
-    // }
+    this.get_module_limits()
   },
-  watch: {
-        $route () {
-          alert(1)
-        }
-      }
+  mounted () {
+    if (md5(this.tool.cookie.getCookie('access_token')) != this.tool.cookie.getCookie('auth')) {
+      this.tool.cookie.delCookie('access_token')
+      this.tool.cookie.delCookie('auth')
+      this.$router.push('login')
+      this.$message({type:'error',message:'登录失效，请重新登录'})
+      return
+    }
+    if (!this.tool.cookie.getCookie('access_token')) {
+      sessionStorage.clear()
+      this.tool.cookie.delCookie('access_token')
+      this.tool.cookie.delCookie('auth')
+      this.$goRoute({path: '/login'})
+      return
+    }
+    if (!sessionStorage.getItem('userInfo')) {
+      this.$router.push({path: '/main'})
+      return
+    }
+  }
 }
 </script>
 
@@ -209,7 +281,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('../../static/images/img_bg1920.png') no-repeat center center/100% 100%;
+    background: url('../../static/images/layout/img_bg1920.png') no-repeat center center/100% 100%;
     .list{
       width: 640px;
       height: 400px;
@@ -222,6 +294,7 @@ export default {
       left:50%;
       transform: translate(-50%,-50%);
       box-shadow: 1px 1px 6px 1px rgba(0,0,0,.3);
+      a{box-sizing: border-box}
       .title{
         width:100%;
         height: 170px;
@@ -250,22 +323,22 @@ export default {
           left:50px;
         }
         .icon_1{
-          background:url("../../static/images/yy.png");
+          background:url("../../static/images/layout/yy.png");
         }
         .icon_2{
-          background:url("../../static/images/mt.png");
+          background:url("../../static/images/layout/mt.png");
         }
         .icon_3{
-          background:url("../../static/images/xx.png");
+          background:url("../../static/images/layout/xx.png");
         }
         .icon_4{
-          background:url("../../static/images/sj.png");
+          background:url("../../static/images/layout/sj.png");
         }
         .icon_5{
-          background:url("../../static/images/gj.png");
+          background:url("../../static/images/layout/gj.png");
         }
         .icon_6{
-          background:url("../../static/images/BI.png");
+          background:url("../../static/images/layout/BI.png");
         }
         .message{
           width:100%;
@@ -277,22 +350,22 @@ export default {
       }
       .orgin:hover{
          .icon_1{
-          background:url("../../static/images/yy_1.png");
+          background:url("../../static/images/layout/yy_1.png");
         }
         .icon_2{
-          background:url("../../static/images/mt_1.png");
+          background:url("../../static/images/layout/mt_1.png");
         }
         .icon_3{
-          background:url("../../static/images/xx_1.png");
+          background:url("../../static/images/layout/xx_1.png");
         }
         .icon_4{
-          background:url("../../static/images/sj_1.png");
+          background:url("../../static/images/layout/sj_1.png");
         }
         .icon_5{
-          background:url("../../static/images/gj_1.png");
+          background:url("../../static/images/layout/gj_1.png");
         }
         .icon_6{
-          background:url("../../static/images/BI_1.png");
+          background:url("../../static/images/layout/BI_1.png");
         }
       }
       .disable{
@@ -312,22 +385,22 @@ export default {
           left:50px;
         }
         .icon_1{
-          background:url("../../static/images/yy_2.png");
+          background:url("../../static/images/layout/yy_2.png");
         }
         .icon_2{
-          background:url("../../static/images/mt_2.png");
+          background:url("../../static/images/layout/mt_2.png");
         }
         .icon_3{
-          background:url("../../static/images/xx_2.png");
+          background:url("../../static/images/layout/xx_2.png");
         }
         .icon_4{
-          background:url("../../static/images/sj_2.png");
+          background:url("../../static/images/layout/sj_2.png");
         }
         .icon_5{
-          background:url("../../static/images/gj_2.png");
+          background:url("../../static/images/layout/gj_2.png");
         }
         .icon_6{
-          background:url("../../static/images/BI_2.png");
+          background:url("../../static/images/layout/BI_2.png");
         }
         .message{
           width:100%;
@@ -348,7 +421,7 @@ export default {
       border:1px solid #ccc;
       color: #333;
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 700;
     }
 }
 </style>

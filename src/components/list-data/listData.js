@@ -8,7 +8,6 @@ export default {
       batch_flag: true, // 符合批量删除为true,否则为false
       batch_datas: [],
       batch_ids: [],
-
       batch: {
         flag: true,
         datas: [],
@@ -18,12 +17,25 @@ export default {
       list: this.DataGrid.List || [], // 列表数组
       fields: this.DataGrid.FieldList || [], // 字段数组
       expand: this.DataGrid.Expand || false, // 折叠
-      checkbox:this.DataGrid.Checkbox || true,//是否显示复选框
+      checkbox:this.DataGrid.Checkbox!==false?true:this.DataGrid.Checkbox,//是否显示复选框
       pagination: this.DataGrid.Pagination || {}, // 分页
-      search: this.DataGrid.Search// 搜索
+      search: this.DataGrid.Search,// 搜索
+      showSummary:this.DataGrid.ShowSummary,//是否显示合计行
+      showSummaryMethod:this.DataGrid.ShowSummaryMethod //合计方法
     }
   },
   methods: {
+    clearSelection(val){
+      // console.log(val)
+    },
+    onSelect(val,row){
+      // console.log(val)
+      this.$emit('onSelect',val,row)
+    },
+    onSelectAll(val){
+      // console.log(val)
+      this.$emit('onSelectAll',val)
+    },
     /**
      * 表格列表触发CheckBox的事件
      * @param  {array} val 
@@ -80,7 +92,7 @@ export default {
      * @param.attr  opts.list   array       当点击列别中的按钮时，此值为当前列表数据
      */
     onBtnEvent (opts) {
-      this.$emit(opts.btnInfo.eventName, opts)
+      this.$emit(opts.btnInfo.eventName, opts,{ids: this.batch.ids,datas: this.batch.datas})
     },
     /**
      * 改变当前页码事件
@@ -96,6 +108,14 @@ export default {
      */
     onChangePageSize (pageSize) {
       this.$emit('onChangePageSize', pageSize)
+    },
+    set(obj,key,value,event){
+      this.$set(obj,key,value)
+      if( event )event.stopPropagation()
+    },
+    blur(row,field){
+      this.set(row ,'column_opened_state',false);
+      field.control.blur(row);
     }
   },
 
@@ -147,7 +167,9 @@ export default {
     },
     'DataGrid.Search'(v){
       this.search = v
-      console.log(v)
+    },
+    'DataGrid.ShowSummary'(v){
+      this.showSummary = v
     }
   }
 }

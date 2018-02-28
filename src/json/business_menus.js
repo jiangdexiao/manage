@@ -86,6 +86,10 @@ export default
             {
                 "name": "工具",
                 "path": "marketing_tool"
+            },
+            {
+                "name": "活动",
+                "path": "marketing_active"
             }
         ]
     },
